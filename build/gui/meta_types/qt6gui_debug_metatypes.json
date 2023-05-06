@@ -1,0 +1,19 @@
+[
+    {
+        "classes": [
+            {
+                "className": "guiPlugin",
+                "object": true,
+                "qualifiedClassName": "guiPlugin",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQmlEngineExtensionPlugin"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "gui_guiPlugin.cpp",
+        "outputRevision": 68
+    }
+]

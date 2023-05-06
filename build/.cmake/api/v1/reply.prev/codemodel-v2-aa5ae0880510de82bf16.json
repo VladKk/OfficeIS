@@ -1,0 +1,349 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-478aab0968a7ba73ab2b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						27
+					]
+				},
+				{
+					"build" : "common",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-common-Debug-e9ffaa0a9a702bdd0608.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "common",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						28
+					]
+				},
+				{
+					"build" : "gui",
+					"jsonFile" : "directory-gui-Debug-748b39b5a140a70fe5f8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "gui",
+					"targetIndexes" : 
+					[
+						0,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "officeis",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 2,
+					"id" : "all_qmllint::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-all_qmllint-Debug-61ad4a60f2ceb6618c91.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "all_qmltyperegistrations::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-all_qmltyperegistrations-Debug-a7ca3ad88ea50a681b6d.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "common::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-common-Debug-42fe69b21f41f9822290.json",
+					"name" : "common",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "common_autogen::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-common_autogen-Debug-0ea79f9e8d4d798973da.json",
+					"name" : "common_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "common_autogen_timestamp_deps::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-common_autogen_timestamp_deps-Debug-2e5f2cf792ed32021b5f.json",
+					"name" : "common_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "common_other_files::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-common_other_files-Debug-79e37b1c71d4e8d97977.json",
+					"name" : "common_other_files",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "common_qmltyperegistration::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-common_qmltyperegistration-Debug-cd299c581cf38324c454.json",
+					"name" : "common_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "common_tooling::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-common_tooling-Debug-c0b1f7f1afe0a9c135ac.json",
+					"name" : "common_tooling",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui-Debug-bce1ad3e5ebbee1dec03.json",
+					"name" : "gui",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_autogen::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_autogen-Debug-691911b0254e6b6259d4.json",
+					"name" : "gui_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_autogen_timestamp_deps::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_autogen_timestamp_deps-Debug-0d46b91aadc4aac995e6.json",
+					"name" : "gui_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_init::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_init-Debug-a690418d97ba0e736820.json",
+					"name" : "gui_init",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_init_autogen::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_init_autogen-Debug-513b7173d8606b2857c3.json",
+					"name" : "gui_init_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_init_autogen_timestamp_deps::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_init_autogen_timestamp_deps-Debug-ea4b1a06d57f217717d3.json",
+					"name" : "gui_init_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_other_files::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_other_files-Debug-51199a0e7c565a3e38b2.json",
+					"name" : "gui_other_files",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_qmlcache::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_qmlcache-Debug-a0ad34090bb6c14a2b78.json",
+					"name" : "gui_qmlcache",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_qmlcache_autogen::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_qmlcache_autogen-Debug-720b4e05fdcccf9228b7.json",
+					"name" : "gui_qmlcache_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_qmlcache_autogen_timestamp_deps::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_qmlcache_autogen_timestamp_deps-Debug-1c90a3a4a3805ed39a08.json",
+					"name" : "gui_qmlcache_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_qmllint::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_qmllint-Debug-6efcb799b8cf008435db.json",
+					"name" : "gui_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_qmltyperegistration::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_qmltyperegistration-Debug-e118dfa4d6e67871eb86.json",
+					"name" : "gui_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_resources_1::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_resources_1-Debug-3a2a607210f6e636e317.json",
+					"name" : "gui_resources_1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_resources_1_autogen::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_resources_1_autogen-Debug-2acb520630ec7675a6da.json",
+					"name" : "gui_resources_1_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_resources_1_autogen_timestamp_deps::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_resources_1_autogen_timestamp_deps-Debug-15c80682f67006275ce3.json",
+					"name" : "gui_resources_1_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_resources_2::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_resources_2-Debug-fd396dc83934957a984d.json",
+					"name" : "gui_resources_2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_resources_2_autogen::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_resources_2_autogen-Debug-ef5d0ca6301300fd484d.json",
+					"name" : "gui_resources_2_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_resources_2_autogen_timestamp_deps::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_resources_2_autogen_timestamp_deps-Debug-e865f2f77db488b7d3c2.json",
+					"name" : "gui_resources_2_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "gui_tooling::@35f413a6cfe5475b20aa",
+					"jsonFile" : "target-gui_tooling-Debug-969c64d277a1d1216e1c.json",
+					"name" : "gui_tooling",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "officeis::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-officeis-Debug-e8c1d09d4280196f2cb1.json",
+					"name" : "officeis",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "qt_internal_plugins::@bfc844598bd03e848b3c",
+					"jsonFile" : "target-qt_internal_plugins-Debug-447fd9f88f1333a92038.json",
+					"name" : "qt_internal_plugins",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/vkoliadenko/projects/OfficeIS/build",
+		"source" : "/home/vkoliadenko/projects/OfficeIS"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

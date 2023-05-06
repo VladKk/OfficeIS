@@ -1,0 +1,17 @@
+/gui/main.qml
+/gui/Global.qml
+/gui/Style.qml
+/gui/pages/account/LoginUser.qml
+/gui/pages/account/RegisterUser.qml
+/gui/widgets/BaseButton.qml
+/gui/widgets/BaseCheckBox.qml
+/gui/widgets/BaseMenu.qml
+/gui/widgets/ClearSymbol.qml
+/gui/widgets/ContextMenu.qml
+/gui/widgets/EchoModeSymbol.qml
+/gui/widgets/EditFieldSymbol.qml
+/gui/widgets/FormField.qml
+/gui/widgets/Notification.qml
+/gui/widgets/PersonalSettingsPopUp.qml
+/gui/widgets/TitleBarButton.qml
+/gui/widgets/WarningSymbol.qml

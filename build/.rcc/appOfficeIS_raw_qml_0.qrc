@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/OfficeIS/">
+    <file alias="Main.qml">/home/vkoliadenko/projects/OfficeIS/Main.qml</file>
+  </qresource>
+</RCC>
+

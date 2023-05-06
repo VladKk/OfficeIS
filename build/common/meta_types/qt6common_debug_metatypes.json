@@ -1,0 +1,174 @@
+[
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "auto"
+                    },
+                    {
+                        "name": "QML.Singleton",
+                        "value": "true"
+                    }
+                ],
+                "className": "DBManager",
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "host",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "port",
+                                "type": "uint"
+                            },
+                            {
+                                "name": "dbName",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "user",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "password",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "connectDB",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "password",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "registerNewUser",
+                        "returnType": "uint8_t"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "checkUserIsRemembered",
+                        "returnType": "QJsonObject"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "isRemembered",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setRememberMe",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "userIsOnline",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "isOnline",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setIsOnline",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "password",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "checkAccount",
+                        "returnType": "uint8_t"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "OfficeIS::DBManager",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "dbmanager.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "Utils",
+                "object": true,
+                "qualifiedClassName": "OfficeIS::Utils",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "utils.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "commonPlugin",
+                "object": true,
+                "qualifiedClassName": "commonPlugin",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QQmlEngineExtensionPlugin"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "common_commonPlugin.cpp",
+        "outputRevision": 68
+    }
+]

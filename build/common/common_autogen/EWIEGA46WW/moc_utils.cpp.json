@@ -1,0 +1,17 @@
+{
+    "classes": [
+        {
+            "className": "Utils",
+            "object": true,
+            "qualifiedClassName": "OfficeIS::Utils",
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "utils.h",
+    "outputRevision": 68
+}

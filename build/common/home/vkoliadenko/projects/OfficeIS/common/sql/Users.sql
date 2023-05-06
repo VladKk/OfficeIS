@@ -1,0 +1,10 @@
+CREATE TYPE IF NOT EXISTS user_role AS ENUM ('USER', 'ADMIN', 'MANAGER');
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role user_role NOT NULL,
+    is_remembered BOOLEAN NOT NULL DEFAULT FALSE,
+    is_online BOOLEAN NOT NULL DEFAULT FALSE
+);

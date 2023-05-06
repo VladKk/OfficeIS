@@ -1,0 +1,23 @@
+module gui
+linktarget gui
+optional plugin gui
+classname guiPlugin
+typeinfo gui.qmltypes
+prefer :/gui/
+singleton Global 1.0 Global.qml
+singleton Style 1.0 Style.qml
+LoginUser 1.0 pages/account/LoginUser.qml
+RegisterUser 1.0 pages/account/RegisterUser.qml
+BaseButton 1.0 widgets/BaseButton.qml
+BaseCheckBox 1.0 widgets/BaseCheckBox.qml
+BaseMenu 1.0 widgets/BaseMenu.qml
+ClearSymbol 1.0 widgets/ClearSymbol.qml
+ContextMenu 1.0 widgets/ContextMenu.qml
+EchoModeSymbol 1.0 widgets/EchoModeSymbol.qml
+EditFieldSymbol 1.0 widgets/EditFieldSymbol.qml
+FormField 1.0 widgets/FormField.qml
+Notification 1.0 widgets/Notification.qml
+PersonalSettingsPopUp 1.0 widgets/PersonalSettingsPopUp.qml
+TitleBarButton 1.0 widgets/TitleBarButton.qml
+WarningSymbol 1.0 widgets/WarningSymbol.qml
+

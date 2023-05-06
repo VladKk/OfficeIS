@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/common">
+    <file alias="qmldir">/home/vkoliadenko/projects/OfficeIS/build/common/qmldir</file>
+  </qresource>
+</RCC>
+

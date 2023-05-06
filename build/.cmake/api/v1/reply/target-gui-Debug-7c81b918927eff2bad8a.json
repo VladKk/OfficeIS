@@ -1,0 +1,1041 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "gui/libgui.a"
+		}
+	],
+	"backtrace" : 6,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"_qt_internal_add_library",
+			"qt6_add_plugin",
+			"qt6_add_qml_plugin",
+			"qt6_add_qml_module",
+			"qt_add_qml_module",
+			"add_dependencies",
+			"qt6_target_qml_sources",
+			"target_link_libraries",
+			"target_compile_definitions",
+			"target_include_directories",
+			"_qt_internal_qml_type_registration",
+			"target_sources",
+			"qt6_extract_metatypes"
+		],
+		"files" : 
+		[
+			"/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/cmake/Qt6Core/Qt6CoreMacros.cmake",
+			"/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake",
+			"gui/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 6,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 615,
+				"parent" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 347,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 1125,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 2080,
+				"parent" : 4
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 2247,
+				"parent" : 5
+			},
+			{
+				"command" : 7,
+				"file" : 1,
+				"line" : 564,
+				"parent" : 2
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 1635,
+				"parent" : 7
+			},
+			{
+				"command" : 8,
+				"file" : 1,
+				"line" : 1210,
+				"parent" : 3
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 2146,
+				"parent" : 4
+			},
+			{
+				"command" : 8,
+				"file" : 2,
+				"line" : 73,
+				"parent" : 0
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 2084,
+				"parent" : 4
+			},
+			{
+				"command" : 11,
+				"file" : 1,
+				"line" : 481,
+				"parent" : 2
+			},
+			{
+				"command" : 10,
+				"file" : 1,
+				"line" : 1890,
+				"parent" : 13
+			},
+			{
+				"command" : 10,
+				"file" : 1,
+				"line" : 1915,
+				"parent" : 13
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1204,
+				"parent" : 3
+			},
+			{
+				"command" : 13,
+				"file" : 1,
+				"line" : 1722,
+				"parent" : 13
+			},
+			{
+				"command" : 12,
+				"file" : 0,
+				"line" : 1297,
+				"parent" : 17
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1881,
+				"parent" : 13
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1440,
+				"parent" : 7
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 1577,
+				"parent" : 7
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-DQT_QML_DEBUG -g"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fPIC"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-pthread"
+				},
+				{
+					"fragment" : "-std=gnu++17"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 9,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "QT_DEPRECATED_WARNINGS"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "QT_GUI_LIB"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "QT_NETWORK_LIB"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "QT_OPENGL_LIB"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "QT_PLUGIN"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "QT_QMLMODELS_LIB"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "QT_QML_LIB"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "QT_QUICK_LIB"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "QT_STATICPLUGIN"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 0,
+					"path" : "/home/vkoliadenko/projects/OfficeIS/build/gui/gui_autogen/include"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "/home/vkoliadenko/projects/OfficeIS/gui"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtQml/6.2.4"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtQml/6.2.4/QtQml"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtCore/6.2.4"
+				},
+				{
+					"backtrace" : 15,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtCore/6.2.4/QtCore"
+				},
+				{
+					"backtrace" : 15,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtCore"
+				},
+				{
+					"backtrace" : 15,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include"
+				},
+				{
+					"backtrace" : 15,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/mkspecs/linux-g++"
+				},
+				{
+					"backtrace" : 15,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtQml"
+				},
+				{
+					"backtrace" : 15,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtNetwork"
+				},
+				{
+					"backtrace" : 11,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtQuick"
+				},
+				{
+					"backtrace" : 11,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtGui"
+				},
+				{
+					"backtrace" : 11,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtQmlModels"
+				},
+				{
+					"backtrace" : 11,
+					"isSystem" : true,
+					"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/include/QtOpenGL"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					9,
+					9
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				3,
+				5,
+				7,
+				9,
+				11,
+				13,
+				15,
+				17,
+				19,
+				21,
+				23,
+				25,
+				27,
+				29,
+				31,
+				33,
+				35,
+				37
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 8,
+			"id" : "gui_tooling::@35f413a6cfe5475b20aa"
+		},
+		{
+			"id" : "gui_autogen_timestamp_deps::@35f413a6cfe5475b20aa"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "gui_autogen::@35f413a6cfe5475b20aa"
+		}
+	],
+	"id" : "gui::@35f413a6cfe5475b20aa",
+	"name" : "gui",
+	"nameOnDisk" : "libgui.a",
+	"paths" : 
+	{
+		"build" : "gui",
+		"source" : "gui"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				3,
+				5,
+				7,
+				9,
+				11,
+				13,
+				15,
+				17,
+				19,
+				21,
+				23,
+				25,
+				27,
+				29,
+				31,
+				33,
+				35,
+				37
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				2,
+				4,
+				6,
+				8,
+				10,
+				12,
+				14,
+				16,
+				18,
+				20,
+				22,
+				24,
+				26,
+				28,
+				30,
+				32,
+				34,
+				36,
+				38,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/gui_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 16,
+			"compileGroupIndex" : 0,
+			"path" : "build/gui/gui_guiPlugin.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 18,
+			"isGenerated" : true,
+			"path" : "build/gui/meta_types/qt6gui_debug_metatypes.json.gen",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 19,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/gui_qmltyperegistrations.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 20,
+			"path" : "gui/main.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 21,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_main_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 22,
+			"path" : "gui/Global.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 23,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_Global_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 24,
+			"path" : "gui/Style.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 25,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_Style_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 26,
+			"path" : "gui/pages/account/LoginUser.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 27,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_pages/account/LoginUser_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 28,
+			"path" : "gui/pages/account/RegisterUser.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 29,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_pages/account/RegisterUser_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 30,
+			"path" : "gui/widgets/BaseButton.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 31,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/BaseButton_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 32,
+			"path" : "gui/widgets/BaseCheckBox.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 33,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/BaseCheckBox_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 34,
+			"path" : "gui/widgets/BaseMenu.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 35,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/BaseMenu_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 36,
+			"path" : "gui/widgets/ClearSymbol.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 37,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/ClearSymbol_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 38,
+			"path" : "gui/widgets/ContextMenu.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 39,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/ContextMenu_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 40,
+			"path" : "gui/widgets/EchoModeSymbol.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 41,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/EchoModeSymbol_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 42,
+			"path" : "gui/widgets/EditFieldSymbol.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 43,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/EditFieldSymbol_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 44,
+			"path" : "gui/widgets/FormField.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 45,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/FormField_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 46,
+			"path" : "gui/widgets/Notification.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 47,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/Notification_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 48,
+			"path" : "gui/widgets/PersonalSettingsPopUp.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 49,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/PersonalSettingsPopUp_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 50,
+			"path" : "gui/widgets/TitleBarButton.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 51,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/TitleBarButton_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"path" : "gui/widgets/WarningSymbol.qml",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 53,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/WarningSymbol_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/gui_autogen/timestamp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/meta_types/qt6gui_debug_metatypes.json.gen.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/gui_qmltyperegistrations.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_main_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_Global_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_Style_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_pages/account/LoginUser_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_pages/account/RegisterUser_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/BaseButton_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/BaseCheckBox_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/BaseMenu_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/ClearSymbol_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/ContextMenu_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/EchoModeSymbol_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/EditFieldSymbol_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/FormField_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/Notification_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/PersonalSettingsPopUp_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/TitleBarButton_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/.rcc/qmlcache/gui_widgets/WarningSymbol_qml.cpp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/gui_autogen/timestamp.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/gui/meta_types/gui_json_file_list.txt.rule",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 9,
+			"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/metatypes/qt6qml_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/metatypes/qt6core_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/metatypes/qt6network_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 11,
+			"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/metatypes/qt6quick_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 11,
+			"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/metatypes/qt6gui_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 11,
+			"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/metatypes/qt6qmlmodels_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 11,
+			"path" : "/home/vkoliadenko/tools/qt/6.2.4/gcc_64/lib/metatypes/qt6opengl_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

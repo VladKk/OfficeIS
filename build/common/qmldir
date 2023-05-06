@@ -1,0 +1,7 @@
+module common
+linktarget common
+optional plugin common
+classname commonPlugin
+typeinfo common.qmltypes
+prefer :/common/
+
