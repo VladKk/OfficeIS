@@ -11,16 +11,24 @@ qt_add_qml_module(gui
         main.qml
         Global.qml
         Style.qml
+        pages/StartPage.qml
+        pages/account/ForgetPass.qml
         pages/account/LoginUser.qml
         pages/account/RegisterUser.qml
+        pages/account/SetNewPass.qml
+        page_models/AppElements.qml
+        page_models/PageViewer.qml
         widgets/BaseButton.qml
         widgets/BaseCheckBox.qml
+        widgets/BaseComboBox.qml
         widgets/BaseMenu.qml
+        widgets/BaseScrollIndicator.qml
         widgets/ClearSymbol.qml
         widgets/ContextMenu.qml
         widgets/EchoModeSymbol.qml
         widgets/EditFieldSymbol.qml
         widgets/FormField.qml
+        widgets/MenuTile.qml
         widgets/Notification.qml
         widgets/PersonalSettingsPopUp.qml
         widgets/TitleBarButton.qml

@@ -65,7 +65,7 @@ uint8_t DBManager::registerNewUser(const QString &username, const QString &passw
         return 2;
     }
 
-    query.prepare("INSERT INTO users VALUES (?, ?);");
+    query.prepare("INSERT INTO users (username, password) VALUES (?, ?);");
     query.addBindValue(username);
     query.addBindValue(password);
 
@@ -157,4 +157,30 @@ uint8_t DBManager::checkAccount(const QString &username, const QString &password
         return query.value(0).toString() != password ? 2 : EXIT_SUCCESS;
     else
         return EXIT_FAILURE;
+}
+
+bool DBManager::findUser(const QString &username)
+{
+    QSqlQuery query;
+    query.prepare("SELECT password FROM users WHERE username=?;");
+    query.addBindValue(username);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        return false;
+    }
+
+    return query.next();
+}
+
+void DBManager::resetPass(const QString &username, const QString &pass1, const QString &pass2)
+{
+    if (pass1 != pass2)
+        return;
+
+    QSqlQuery query;
+    query.prepare("UPDATE users SET password=? WHERE username=?;");
+    query.addBindValue(pass1);
+    query.addBindValue(username);
+    if (!query.exec())
+        LOG_FAILED_QUERY(query);
 }

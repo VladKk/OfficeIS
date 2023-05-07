@@ -55,5 +55,16 @@ Module {
             Parameter { name: "username"; type: "QString" }
             Parameter { name: "password"; type: "QString" }
         }
+        Method {
+            name: "findUser"
+            type: "bool"
+            Parameter { name: "username"; type: "QString" }
+        }
+        Method {
+            name: "resetPass"
+            Parameter { name: "username"; type: "QString" }
+            Parameter { name: "pass1"; type: "QString" }
+            Parameter { name: "pass2"; type: "QString" }
+        }
     }
 }

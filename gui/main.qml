@@ -327,6 +327,11 @@ ApplicationWindow {
             Global.personalSettingsPopUp = pesonalSettingsPopUp;
             stackView.replacePage("qrc:/gui/pages/account/LoginUser.qml");
         }
+
+        Component.onDestruction: {
+            if (Common.DBManager.userIsOnline(Global.settings.lastLoggedLocalUser.username))
+                Common.DBManager.setIsOnline(Global.settings.lastLoggedLocalUser.username, false);
+        }
     }
 
     Rectangle {

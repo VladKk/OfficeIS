@@ -1,0 +1,9 @@
+compile_commands.json
+config.h
+scripts/generate_script_file.sh
+CMakeLists.txt.user
+.vscode
+build
+doc
+**/.DS_Store
+

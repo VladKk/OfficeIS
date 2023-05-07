@@ -122,6 +122,36 @@
                         ],
                         "name": "checkAccount",
                         "returnType": "uint8_t"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "findUser",
+                        "returnType": "bool"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "username",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "pass1",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "pass2",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "resetPass",
+                        "returnType": "void"
                     }
                 ],
                 "object": true,

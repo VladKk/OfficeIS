@@ -69,6 +69,13 @@ Page {
             Keys.onReturnPressed: {
                 _localUsrPassword.forceActiveFocus();
             }
+
+            onTextChanged: { // Link enabled state to text content and drop isChecked if text is empty to let user set it again
+                _rmbMe.enabled = text;
+
+                if (!text)
+                        _rmbMe.isChecked = false;
+            }
         }
         Item {
             height: 0
@@ -96,6 +103,13 @@ Page {
             }
             Keys.onReturnPressed: {
                 _localLogInBtn.clicked();
+            }
+
+            onTextChanged: { // Link enabled state to text content and drop isChecked if text is empty to let user set it again
+                _rmbMe.enabled = text;
+
+                if (!text)
+                        _rmbMe.isChecked = false;
             }
         }
 
@@ -275,11 +289,11 @@ Page {
                 switch(DBManager.checkAccount(usrName, usrPwd)) {
                 case 0:
                     DBManager.setIsOnline(usrName, true);
+                    Global.settings.lastLoggedLocalUser = {username: usrName, isRemembered: _rmbMe.isChecked};
                     Global.mainStackView.replacePage("qrc:/gui/pages/StartPage.qml")
                     _localLogInBtn.enabled = true;
                     _busyIndicator.running = false;
                     _busyIndicator.visible = false;
-                    Global.settings.lastLoggedLocalUser = {username: usrName, isRemembered: _rmbMe.isChecked};
                     break;
                 case 1: message = qsTr( "User account does not exist in application!\nPlease \"Sign Up\" first!" );
                     console.warn("Local user: " + usrName + " tried login to the system, but such user doesn't exists in DB");

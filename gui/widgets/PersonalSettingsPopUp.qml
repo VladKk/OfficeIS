@@ -1,5 +1,6 @@
 import QtQuick.Window
 import QtQuick.Controls
+import QtQuick.Controls.Material
 import QtQuick.Layouts
 import Qt.labs.qmlmodels
 import Qt5Compat.GraphicalEffects
@@ -43,7 +44,7 @@ Popup{
                 color: Style.bgColor
                 radius: _userPersSettingsPopUp.radiusPopUp
             }
-            property var settingsButtonModel: ["Color scheme", "..."] // TabNames
+            property var settingsButtonModel: ["General", "..."] // TabNames
 
             Repeater {
                 id: _tabButtons
@@ -89,30 +90,37 @@ Popup{
         }
 
         Rectangle {
-            id: _schemeLoader
+            id: _general
             anchors.top: _bar.bottom; anchors.centerIn: parent;
             width: parent.width;
             height: parent.height - (_bar.height + _bottomRow.height + 25);
             color: Style.appTransparent;
-            visible: _bar.settingsButtonModel[_bar.currentIndex] === "Color scheme"
+            visible: _bar.settingsButtonModel[_bar.currentIndex] === "General"
 
             Column {
                 anchors{
                     horizontalCenter: parent.horizontalCenter;
-                    top: _schemeLoader.top;
+                    top: _general.top;
                     topMargin: 30
                 }
+
+                spacing: 10
 
                 Row {
                     id: _schemeRow
                     spacing: 10
+
                     Label {
                         text: qsTr( "Color scheme:" )
                         color: Style.mainTextColor
+                        anchors.verticalCenter: parent.verticalCenter
                     }
-                    ComboBox {
+                    BaseComboBox {
                         id: _schemeBox
                         model: ["Dark scheme", "Light scheme", "Test scheme"];
+
+                        width: 150
+
                         onCurrentTextChanged: {
                             console.info("Picked Color:", _schemeBox.currentText);
                         }
@@ -123,7 +131,7 @@ Popup{
 
         RowLayout {
             id: _bottomRow
-            anchors.top: _schemeLoader.bottom
+            anchors.top: _general.bottom
             width: parent.width
             spacing: 15
 
@@ -173,18 +181,17 @@ Popup{
     }
 
     Component.onCompleted: {
-        if (Global.settings.lastUsedColourScheme === "Dark scheme") {
+        var scheme = Global.appSettings.lastUsedColourScheme;
+
+        if (scheme === "Dark scheme") {
             _schemeBox.currentIndex = _schemeBox.model.indexOf(scheme);
             Style.currenTheme = Style.themes.darkTheme
-        } else if (Global.settings.lastUsedColourScheme === "Light scheme"){
+        } else if (scheme === "Light scheme"){
             _schemeBox.currentIndex = _schemeBox.model.indexOf(scheme);
             Style.currenTheme = Style.themes.lightTheme
-        } else if (Global.settings.lastUsedColourScheme === "Test scheme"){
+        } else if (scheme === "Test scheme"){
             _schemeBox.currentIndex = _schemeBox.model.indexOf(scheme);
             Style.currenTheme = Style.themes.testTheme
-        } else {
-            _schemeBox.currentIndex = _schemeBox.model.indexOf(scheme);
-            Style.currenTheme = Style.themes.darkTheme
         }
     }
 }
