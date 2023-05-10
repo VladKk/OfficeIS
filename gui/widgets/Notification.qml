@@ -17,6 +17,7 @@ Popup {
     property alias priority: popup.z
     property alias popMessage: message.text
     property alias timeout: popupClose.interval
+    property alias notificationHeight: popup.background.implicitHeight
 
     background: Rectangle {
         readonly property int initImplicitHeight: 60
@@ -26,8 +27,6 @@ Popup {
         radius: 2
     }
 
-    y: 0
-    modal: true
     focus: true
     opacity: 0.75
     closePolicy: Popup.CloseOnPressOutside
@@ -41,11 +40,9 @@ Popup {
         onContentHeightChanged:  {
             if (this.contentHeight >= popup.background.initImplicitHeight) {
                 popup.background.implicitHeight = popup.background.initImplicitHeight * 2;
-                popup.y = rootWindow.height - (this.contentHeight * 2 + rootWindow.bw * 2);
             }
             else {
                 popup.background.implicitHeight = popup.background.initImplicitHeight;
-                popup.y = rootWindow.height - (popup.background.initImplicitHeight * (5/3) + rootWindow.bw * 2);
             }
         }
     }

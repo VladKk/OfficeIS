@@ -12,12 +12,12 @@ qt_add_qml_module(gui
         Global.qml
         Style.qml
         pages/StartPage.qml
+        pages/MyDocs.qml
         pages/account/ForgetPass.qml
         pages/account/LoginUser.qml
         pages/account/RegisterUser.qml
         pages/account/SetNewPass.qml
         page_models/AppElements.qml
-        page_models/PageViewer.qml
         widgets/BaseButton.qml
         widgets/BaseCheckBox.qml
         widgets/BaseComboBox.qml

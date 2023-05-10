@@ -61,6 +61,7 @@ target_compile_definitions(${PROJECT} PRIVATE
 target_link_libraries(${PROJECT} PRIVATE Qt6::Core Qt6::Qml Qt6::Quick Qt6::Widgets Qt6::Sql gui)
 
 add_subdirectory(common)
+add_subdirectory(filehandler)
 add_subdirectory(filteringmodel)
 add_subdirectory(gui)
 

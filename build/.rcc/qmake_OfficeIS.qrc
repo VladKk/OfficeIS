@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/OfficeIS">
-    <file alias="qmldir">/home/vkoliadenko/projects/OfficeIS/build/OfficeIS/qmldir</file>
-  </qresource>
-</RCC>
-

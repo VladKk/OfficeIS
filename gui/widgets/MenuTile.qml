@@ -73,9 +73,4 @@ Button {
         color: Style.mainTextColor
         scale: root.down ? 1.03 : 1.0
     }
-
-    onClicked: {
-        Global.notification.showMessage(qsTr( "Functionality not implemented yet" ), 10000);
-        console.log("%1 clicked".arg(buttonName));
-    }
 }

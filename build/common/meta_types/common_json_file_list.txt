@@ -1,3 +1,0 @@
-/home/vkoliadenko/projects/OfficeIS/build/common/common_autogen/include/../EWIEGA46WW/moc_dbmanager.cpp.json
-/home/vkoliadenko/projects/OfficeIS/build/common/common_autogen/include/../EWIEGA46WW/moc_utils.cpp.json
-/home/vkoliadenko/projects/OfficeIS/build/common/common_autogen/include/common_commonPlugin.moc.json

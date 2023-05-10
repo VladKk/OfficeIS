@@ -7,12 +7,10 @@ import filteringmodel
 FilteringModel {
     id: root
 
-    signal appElementSelected(var panelModelUrl)
-
     MenuTile {
         buttonName: "My documents"
         onClicked: {
-            Global.notification.showMessage(qsTr( "Functionality not implemented yet" ), 10000);
+            Global.mainStackView.replacePage("qrc:/gui/pages/MyDocs.qml");
         }
     }
     MenuTile {

@@ -315,8 +315,21 @@ ApplicationWindow {
             }
         }
 
-        Notification {
-            id: _notification
+        Item {
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+            }
+
+            height: _notification.notificationHeight
+
+            Notification {
+                id: _notification
+
+                width: parent.width
+                anchors.centerIn: parent
+            }
         }
 
         Component.onCompleted: {

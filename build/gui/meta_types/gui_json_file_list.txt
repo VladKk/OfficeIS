@@ -1,1 +1,0 @@
-/home/vkoliadenko/projects/OfficeIS/build/gui/gui_autogen/include/gui_guiPlugin.moc.json

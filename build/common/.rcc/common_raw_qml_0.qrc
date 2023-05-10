@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/common/">
-    <file alias="sql/Users.sql">/home/vkoliadenko/projects/OfficeIS/common/sql/Users.sql</file>
-  </qresource>
-</RCC>
-
