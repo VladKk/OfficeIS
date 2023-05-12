@@ -12,7 +12,7 @@ class Utils : public QObject
 public:
     Utils(QObject *parent = nullptr);
 
-    QString readFileAsString(QString src);
+    QString readFileAsString(const QString &src);
 };
 
 OFFICEIS_NS_END

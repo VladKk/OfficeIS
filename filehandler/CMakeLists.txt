@@ -11,7 +11,8 @@ qt_add_qml_module(filehandler
     PLUGIN_TARGET filehandler
 )
 
-target_link_libraries(filehandler PRIVATE Qt6::Core)
+add_subdirectory(3rdParty/QXlsx/QXlsx)
+target_link_libraries(filehandler PRIVATE Qt6::Core QXlsx::QXlsx)
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_LIST_DIR})
 
 install(TARGETS filehandler LIBRARY DESTINATION ${OFFICEIS_INSTALL_QML_PATH}/filehandler)

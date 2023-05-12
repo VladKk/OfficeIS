@@ -8,7 +8,7 @@ Utils::Utils(QObject *parent)
     : QObject(parent)
 {}
 
-QString Utils::readFileAsString(QString src)
+QString Utils::readFileAsString(const QString &src)
 {
     QFile file(src);
     file.open(QIODevice::ReadOnly);

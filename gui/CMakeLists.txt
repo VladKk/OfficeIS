@@ -1,4 +1,4 @@
-find_package(Qt6 6.2 COMPONENTS Qml Core Quick REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Qml Core Quick Widgets REQUIRED)
 
 set_source_files_properties(Style.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 set_source_files_properties(Global.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
@@ -78,4 +78,4 @@ qt_add_qml_module(gui
     PLUGIN_TARGET gui
 )
 
-target_link_libraries(gui PUBLIC Qt6::Qml Qt6::Core Qt6::Quick)
+target_link_libraries(gui PUBLIC Qt6::Qml Qt6::Core Qt6::Quick Qt6::Widgets)

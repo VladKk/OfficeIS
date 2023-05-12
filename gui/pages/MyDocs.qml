@@ -1,9 +1,14 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Dialogs
 import Qt5Compat.GraphicalEffects
+
+import Qt.labs.platform
 
 import gui
 import filehandler
+import common
 
 Page {
     id: _docsPage
@@ -77,7 +82,7 @@ Page {
 
         anchors {
             left: parent.left
-            leftMargin: 10
+            leftMargin: 5
         }
 
         z: 1
@@ -94,9 +99,55 @@ Page {
         onClicked: {
             scrollView.visible = !scrollView.visible;
         }
+    }
 
-        Component.onCompleted: {
-            console.log(font.family)
+    BaseButton {
+        id: _openFile
+
+        anchors {
+            rightMargin: 5
+            right: _tabBar.left
+        }
+
+        z: 1
+        expectedWidth: 30
+        expectedHeight: 20
+        baseColor: Style.bgColor
+        borderColor: Style.mainTextColor
+        textColor: Style.mainTextColor
+        buttonText: "Open files..."
+        font.family: Style.fontName
+        tooltipText: "Open file with file browser"
+        clip: true
+
+        onClicked: {
+            console.log("File selection opened")
+            _fileDialog.visible = true;
+        }
+
+        FileDialog {
+            id: _fileDialog
+
+            visible: false
+            folder: StandardPaths.writableLocation(StandardPaths.AppDataLocation) + "/docs"
+            fileMode: FileDialog.OpenFiles
+            nameFilters: ["Documents (*.doc *.docx *.odt *.pdf *txt)", "Spreadsheets (*.xls *.xlsx *.ods)", "All files (*)"]
+            options: FileDialog.ReadOnly | FileDialog.DontResolveSymlinks
+
+            onRejected: {
+                console.log("File selection cancelled")
+            }
+
+            onAccepted: {
+                var combined = FileHandler.getFileNames(currentFiles);
+                combined = _docLoader.model.concat(combined);
+                combined = combined.filter(function(file, index) {
+                    return combined.indexOf(file) === index;
+                });
+
+                _docLoader.model = combined;
+                console.log("New model: %1".arg(_docLoader.model));
+            }
         }
     }
 
@@ -247,6 +298,46 @@ Page {
                     var refreshedModel = model;
                     refreshedModel.splice(index, 1);
                     model = refreshedModel;
+                }
+            }
+        }
+    }
+
+    StackLayout {
+        id: _stackLayout
+
+        anchors.topMargin: 50
+        anchors.fill: _tabBar
+        currentIndex: _tabBar.currentIndex
+
+        Repeater {
+            id: _textModel
+            model: _docLoader.model
+
+            Rectangle {
+                id: _textEditWrapper
+                width: 200
+                height: 100
+                color: Style.bgColor
+                border.color: Style.mainAppColor
+                border.width: 1
+
+                ScrollView {
+                    anchors.fill: parent
+
+                    TextEdit {
+                        id: _textEdit
+                        width: _textEditWrapper.width
+                        height: _textEditWrapper.height
+                        text: FileHandler.openFile(_textModel.model[index])
+                        readOnly: true
+                        color: Style.mainTextColor
+                        font.family: Style.fontName
+                        wrapMode: TextEdit.Wrap
+                        anchors.fill: parent
+                        padding: 10
+                        selectByMouse: true
+                    }
                 }
             }
         }
