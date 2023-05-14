@@ -16,7 +16,7 @@ FilteringModel {
     MenuTile {
         buttonName: "My projects"
         onClicked: {
-            Global.notification.showMessage(qsTr( "Functionality not implemented yet" ), 10000);
+            Global.mainStackView.replacePage("qrc:/gui/pages/MyProjects.qml");
         }
     }
     MenuTile {

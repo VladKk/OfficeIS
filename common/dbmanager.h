@@ -40,7 +40,11 @@ public:
     Q_INVOKABLE void setIsOnline(const QString &username, const bool &isOnline);
     Q_INVOKABLE uint8_t checkAccount(const QString &username, const QString &password);
     Q_INVOKABLE bool findUser(const QString &username);
+    Q_INVOKABLE QStringList searchUsers(const QString &searchPattern);
     Q_INVOKABLE void resetPass(const QString &username, const QString &pass1, const QString &pass2);
+    Q_INVOKABLE QStringList getUserProjects(const QString &username);
+    Q_INVOKABLE QStringList getAllProjects();
+    Q_INVOKABLE QString getUserRole(const QString &username);
 
 private:
     void initDB();

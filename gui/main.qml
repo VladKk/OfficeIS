@@ -204,7 +204,7 @@ ApplicationWindow {
                         Action {
                             text: qsTr("&About")
                             shortcut: "Ctrl+Alt+A"
-                            onTriggered: Global.mainStackView.pushPage("qrc:/gui/pages/JirAppAbout.qml")
+                            onTriggered: Global.mainStackView.pushPage("qrc:/gui/pages/AppAbout.qml")
                         }
                         }
                     }

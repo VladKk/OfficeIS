@@ -165,6 +165,8 @@ Page {
         height: parent.height
         width: visible ? 250 : 0
 
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
         ListView {
             id: listView
 

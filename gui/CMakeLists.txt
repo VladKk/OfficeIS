@@ -11,8 +11,10 @@ qt_add_qml_module(gui
         main.qml
         Global.qml
         Style.qml
+        pages/AppAbout.qml
         pages/StartPage.qml
         pages/MyDocs.qml
+        pages/MyProjects.qml
         pages/account/ForgetPass.qml
         pages/account/LoginUser.qml
         pages/account/RegisterUser.qml
@@ -31,6 +33,7 @@ qt_add_qml_module(gui
         widgets/MenuTile.qml
         widgets/Notification.qml
         widgets/PersonalSettingsPopUp.qml
+        widgets/ProjectDialog.qml
         widgets/TitleBarButton.qml
         widgets/WarningSymbol.qml
     RESOURCES

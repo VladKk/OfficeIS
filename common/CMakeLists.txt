@@ -12,6 +12,8 @@ qt_add_qml_module(common
         qmldir
     RESOURCES
         sql/Users.sql
+        sql/Tasks.sql
+        sql/Projects.sql
     PLUGIN_TARGET common
 )
 

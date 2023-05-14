@@ -48,6 +48,14 @@ void DBManager::initDB()
         LOG_FAILED_QUERY(query);
         return;
     }
+    if (!query.exec(m_utils.readFileAsString(":/common/sql/Projects.sql"))) {
+        LOG_FAILED_QUERY(query);
+        return;
+    }
+    if (!query.exec(m_utils.readFileAsString(":/common/sql/Tasks.sql"))) {
+        LOG_FAILED_QUERY(query);
+        return;
+    }
 }
 
 uint8_t DBManager::registerNewUser(const QString &username, const QString &password)
@@ -172,6 +180,24 @@ bool DBManager::findUser(const QString &username)
     return query.next();
 }
 
+QStringList DBManager::searchUsers(const QString &searchPattern)
+{
+    QStringList res;
+    QSqlQuery query;
+    query.prepare("SELECT username FROM users WHERE username ILIKE ?;");
+    query.addBindValue(QString("%%1%").arg(searchPattern));
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        return res;
+    }
+
+    while (query.next()) {
+        res << query.value(0).toString();
+    }
+
+    return res;
+}
+
 void DBManager::resetPass(const QString &username, const QString &pass1, const QString &pass2)
 {
     if (pass1 != pass2)
@@ -183,4 +209,59 @@ void DBManager::resetPass(const QString &username, const QString &pass1, const Q
     query.addBindValue(username);
     if (!query.exec())
         LOG_FAILED_QUERY(query);
+}
+
+QStringList DBManager::getUserProjects(const QString &username)
+{
+    QStringList res;
+    QSqlQuery query;
+    query.prepare(
+        "SELECT projects.name FROM users JOIN user_projects ON users.id=user_projects.user_id JOIN "
+        "projects ON projects.id=user_projects.project_id WHERE users.username=?;");
+    query.addBindValue(username);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        return res;
+    }
+
+    while (query.next()) {
+        res << query.value(0).toString();
+    }
+
+    return res;
+}
+
+QStringList DBManager::getAllProjects()
+{
+    QStringList res;
+    QSqlQuery query;
+    query.prepare("SELECT name FROM projects;");
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        return res;
+    }
+
+    while (query.next()) {
+        res << query.value(0).toString();
+    }
+
+    return res;
+}
+
+QString DBManager::getUserRole(const QString &username)
+{
+    QString res;
+    QSqlQuery query;
+    query.prepare("SELECT role FROM users WHERE username=?;");
+    query.addBindValue(username);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        return res;
+    }
+
+    if (query.next()) {
+        res = query.value(0).toString();
+    }
+
+    return res;
 }
