@@ -8,10 +8,12 @@ import gui
 Dialog {
     id: root
 
+    property var newModel
+
     modal: true
-    width: 800
+    width: 600
     height: 600
-    x: rootWindow.width / 2 - width / 2
+    x: (rootWindow.width - width) / 2
     closePolicy: Popup.NoAutoClose
 
     background: Rectangle {
@@ -68,6 +70,30 @@ Dialog {
                 tooltipText: "Create project"
                 clip: true
                 DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
+
+                onClicked: {
+                    console.log("Project created");
+                    if (!verifyData())
+                        return;
+
+                    var res = DBManager.createProject(_projectName.text, _projectDescription.text, suggestionsList.selectedUsers);
+
+                    if (!res) {
+                        Global.notification.showSuccessMessage("Project %1 created successfully!".arg(_projectName.text));
+                        newModel = DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? DBManager.getAllProjects()
+                                        : DBManager.getUserProjects(Global.settings.lastLoggedLocalUser.username);
+                    }
+                    else if (res === 1) {
+                        Global.notification.showErrorMessage("Could not create new project!");
+                        return;
+                    }
+                    else {
+                        Global.notification.showWarningMessage("Project %1 already exists!".arg(_projectName.text));
+                        return;
+                    }
+
+                    root.close();
+                }
             }
 
             BaseButton {
@@ -139,7 +165,7 @@ Dialog {
             clearSymbolApplicable: true
 
             Keys.onEnterPressed: {
-                console.log("SSSSSSSSs")
+                searchField.forceActiveFocus();
             }
         }
 
@@ -169,6 +195,17 @@ Dialog {
             }
         }
 
+        Label {
+            Layout.preferredWidth: parent.width / 2.5
+            Layout.alignment: Qt.AlignRight | Qt.AlignTop
+            Layout.minimumHeight: height
+
+            text: "User list"
+            font.family: Style.fontName
+            font.pointSize: 14
+            color: Style.mainTextColor
+        }
+
         ScrollView {
             Layout.preferredWidth: parent.width / 2.5
             Layout.alignment: Qt.AlignRight | Qt.AlignTop
@@ -181,7 +218,7 @@ Dialog {
 
                 anchors.fill: parent
 
-                property var selectedUsers: []
+                property var selectedUsers: [Global.settings.lastLoggedLocalUser.username]
 
                 model: []
 
@@ -196,9 +233,16 @@ Dialog {
                     }
 
                     Component.onCompleted: {
+                        if (name === Global.settings.lastLoggedLocalUser.username)
+                            enabled = false;
+
                         if (suggestionsList.selectedUsers.indexOf(name) !== -1)
                             isChecked = true;
                     }
+                }
+
+                Component.onCompleted: {
+                    model = selectedUsers;
                 }
 
                 function updateSelectedUsers(name, isChecked) {
@@ -219,5 +263,23 @@ Dialog {
                 }
             }
         }
+    }
+
+    function verifyData() {
+        if (_projectName.text === "") {
+            _projectName.isWarningShown = true;
+            _projectName.warnToolTiptext = "Enter project name";
+            _projectName.warnPopUpMessage = "Project name was not entered";
+            return false;
+        }
+
+        if (suggestionsList.selectedUsers === []) {
+            searchField.isWarningShown = true;
+            searchField.warnToolTiptext = "Add users to projects";
+            searchField.warnPopUpMessage = "Users were not added to project";
+            return false;
+        }
+
+        return true;
     }
 }

@@ -98,6 +98,10 @@ Page {
 
         ProjectDialog {
             id: _projectCreation
+
+            onNewModelChanged: {
+                listView.model = newModel ? newModel : listView.model;
+            }
         }
     }
 
@@ -168,12 +172,6 @@ Page {
 
                 onClicked: {
                     console.log("Opened project: " + listView.model[index]);
-                    if (!_docLoader.model.includes(listView.model[index])) {
-                        var updatedModel = _docLoader.model.concat(listView.model[index]);
-                        _docLoader.model = updatedModel;
-                    }
-
-                    _tabBar.currentIndex = _docLoader.model.indexOf(_itemText.text);
                 }
             }
         }

@@ -45,6 +45,9 @@ public:
     Q_INVOKABLE QStringList getUserProjects(const QString &username);
     Q_INVOKABLE QStringList getAllProjects();
     Q_INVOKABLE QString getUserRole(const QString &username);
+    Q_INVOKABLE uint8_t createProject(const QString &name,
+                                      const QString &description,
+                                      const QStringList &userList);
 
 private:
     void initDB();
