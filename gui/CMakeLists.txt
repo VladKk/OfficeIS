@@ -23,8 +23,10 @@ qt_add_qml_module(gui
         widgets/BaseButton.qml
         widgets/BaseCheckBox.qml
         widgets/BaseComboBox.qml
+        widgets/BaseDateField.qml
         widgets/BaseMenu.qml
         widgets/BaseScrollIndicator.qml
+        widgets/BaseTask.qml
         widgets/ClearSymbol.qml
         widgets/ContextMenu.qml
         widgets/EchoModeSymbol.qml

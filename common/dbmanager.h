@@ -44,10 +44,18 @@ public:
     Q_INVOKABLE void resetPass(const QString &username, const QString &pass1, const QString &pass2);
     Q_INVOKABLE QStringList getUserProjects(const QString &username);
     Q_INVOKABLE QStringList getAllProjects();
+    Q_INVOKABLE QString getProjectDescription(const QString &project);
     Q_INVOKABLE QString getUserRole(const QString &username);
     Q_INVOKABLE uint8_t createProject(const QString &name,
                                       const QString &description,
                                       const QStringList &userList);
+    Q_INVOKABLE QString getTaskStatus(const QString &project,
+                                      const QString &taskName,
+                                      const QString &username);
+    Q_INVOKABLE QDate getTaskDueDate(const QString &project,
+                                     const QString &taskName,
+                                     const QString &username);
+    Q_INVOKABLE QStringList getAllTasks(const QString &project);
 
 private:
     void initDB();

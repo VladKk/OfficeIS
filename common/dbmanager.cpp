@@ -309,6 +309,27 @@ QStringList DBManager::getAllProjects()
     return res;
 }
 
+QString DBManager::getProjectDescription(const QString &project)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    query.prepare("SELECT description FROM projects WHERE name=?;");
+    query.addBindValue(project);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return "";
+    }
+
+    if (query.next()) {
+        m_db.commit();
+        return query.value(0).toString();
+    }
+
+    m_db.commit();
+    return "";
+}
+
 QString DBManager::getUserRole(const QString &username)
 {
     m_db.transaction();
@@ -376,4 +397,81 @@ uint8_t DBManager::createProject(const QString &name,
 
     m_db.commit();
     return EXIT_SUCCESS;
+}
+
+QString DBManager::getTaskStatus(const QString &project,
+                                 const QString &taskName,
+                                 const QString &username)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    query.prepare("SELECT tasks.status FROM tasks INNER JOIN users ON tasks.user_id=users.id INNER "
+                  "JOIN projects ON tasks.parent_project_id=projects.id WHERE users.username=? AND "
+                  "projects.name=? AND tasks.name=?;");
+    query.addBindValue(username);
+    query.addBindValue(project);
+    query.addBindValue(taskName);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return "TO DO";
+    }
+
+    if (query.next()) {
+        m_db.commit();
+        return query.value(0).toString();
+    }
+
+    m_db.commit();
+    return "TO DO";
+}
+
+QDate DBManager::getTaskDueDate(const QString &project,
+                                const QString &taskName,
+                                const QString &username)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    query.prepare(
+        "SELECT tasks.due_date FROM tasks INNER JOIN users ON tasks.user_id=users.id INNER "
+        "JOIN projects ON tasks.parent_project_id=projects.id WHERE users.username=? AND "
+        "projects.name=? AND tasks.name=?;");
+    query.addBindValue(username);
+    query.addBindValue(project);
+    query.addBindValue(taskName);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return QDate().currentDate();
+    }
+
+    if (query.next()) {
+        m_db.commit();
+        return query.value(0).toDate();
+    }
+
+    m_db.commit();
+    return QDate().currentDate();
+}
+
+QStringList DBManager::getAllTasks(const QString &project)
+{
+    m_db.transaction();
+    QStringList res;
+    QSqlQuery query(m_db);
+    query.prepare("SELECT tasks.name FROM tasks INNER JOIN projects ON "
+                  "tasks.parent_project_id=projects.id WHERE projects.name=?;");
+    query.addBindValue(project);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return res;
+    }
+
+    while (query.next()) {
+        res << query.value(0).toString();
+    }
+
+    m_db.commit();
+    return res;
 }
