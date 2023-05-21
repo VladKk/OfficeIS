@@ -8,8 +8,6 @@ import gui
 Dialog {
     id: root
 
-    property var newModel
-
     modal: true
     width: 600
     height: 600
@@ -24,7 +22,7 @@ Dialog {
 
     header: Item {
         Text {
-            text: "Create new project"
+            text: "Create new task"
             font.family: Style.fontName
             anchors {
                 topMargin: 10
@@ -67,7 +65,7 @@ Dialog {
                 textColor: Style.mainTextColor
                 buttonText: "Create"
                 font.family: Style.fontName
-                tooltipText: "Create project"
+                tooltipText: "Create task"
                 clip: true
                 DialogButtonBox.buttonRole: DialogButtonBox.ApplyRole
 
@@ -75,20 +73,18 @@ Dialog {
                     if (!verifyData())
                         return;
 
-                    var res = DBManager.createProject(_projectName.text, _projectDescription.text, suggestionsList.selectedUsers);
+                    var res = DBManager.createTask(_project.currentText, _taskName.text, Date.fromLocaleString(Qt.locale(), dateField.text, "dd/MM/yyyy"), searchField.text);
 
                     if (!res) {
-                        Global.notification.showSuccessMessage("Project %1 created successfully!".arg(_projectName.text));
-                        newModel = DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? DBManager.getAllProjects()
-                                        : DBManager.getUserProjects(Global.settings.lastLoggedLocalUser.username);
-                        console.log("Project created");
+                        Global.notification.showSuccessMessage("Task %1 created successfully!".arg(_taskName.text));
+                        console.log("Task created");
                     }
                     else if (res === 1) {
-                        Global.notification.showErrorMessage("Could not create new project!");
+                        Global.notification.showErrorMessage("Could not create new task!");
                         return;
                     }
                     else {
-                        Global.notification.showWarningMessage("Project %1 already exists!".arg(_projectName.text));
+                        Global.notification.showWarningMessage("Task %1 already exists!".arg(_taskName.text));
                         return;
                     }
 
@@ -111,12 +107,12 @@ Dialog {
                 textColor: Style.mainTextColor
                 buttonText: "Cancel"
                 font.family: Style.fontName
-                tooltipText: "Cancel project creation"
+                tooltipText: "Cancel task creation"
                 clip: true
                 DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
 
                 onClicked: {
-                    console.log("Project creation cancelled");
+                    console.log("Task creation cancelled");
                     root.close();
                 }
             }
@@ -129,19 +125,61 @@ Dialog {
             left: parent.left
             top: parent.top
             leftMargin: 10
-            topMargin: 10
+            topMargin: 30
         }
         spacing: 15
 
-        FormField {
-            id: _projectName
+        Label {
+            Layout.preferredWidth: parent.width / 2.5
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.minimumHeight: height
+
+            text: "Select project:"
+            font.family: Style.fontName
+            font.pointSize: 14
+            color: Style.mainTextColor
+        }
+
+        BaseComboBox {
+            id: _project
+            model: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? DBManager.getAllProjects()
+                                            : DBManager.getUserProjects(Global.settings.lastLoggedLocalUser.username);
+
+            Layout.preferredWidth: parent.width / 2.5
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.minimumHeight: height
+        }
+
+        Label {
+            Layout.preferredWidth: parent.width / 2.5
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.minimumHeight: height
+
+            text: "Due date:"
+            font.family: Style.fontName
+            font.pointSize: 14
+            color: Style.mainTextColor
+        }
+
+        BaseDateField {
+            id: dateField
 
             Layout.preferredWidth: parent.width / 2.5
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.minimumHeight: height
 
-            labelText: "Project name"
-            placeHolderText: "Project name"
+            defaultDate: new Date()
+        }
+
+        FormField {
+            id: _taskName
+
+            Layout.preferredWidth: parent.width / 2.5
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.minimumHeight: height
+
+            labelText: "Task name"
+            placeHolderText: "Task name"
             fieldIcon: "qrc:/gui/images/symbols/pencil.png"
 
             clearSymbolApplicable: true
@@ -152,63 +190,29 @@ Dialog {
         }
 
         FormField {
-            id: _projectDescription
-
-            Layout.preferredWidth: parent.width / 2.5
-            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-            Layout.minimumHeight: height
-
-            labelText: "Project description"
-            placeHolderText: "Project description"
-            fieldIcon: "qrc:/gui/images/symbols/pencil.png"
-
-            clearSymbolApplicable: true
-
-            Keys.onEnterPressed: {
-                searchField.forceActiveFocus();
-            }
-        }
-
-        FormField {
             id: searchField
 
             Layout.preferredWidth: parent.width / 2.5
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.minimumHeight: height
 
-            labelText: "Add users"
-            placeHolderText: "Add users"
+            labelText: "Assignee"
+            placeHolderText: "Assignee"
             fieldIcon: "qrc:/gui/images/symbols/pencil.png"
 
             clearSymbolApplicable: true
 
             onTextChanged: {
-                if (text.length >= 3) {
+                if (text.length >= 3 && !suggestionsList.chosen) {
                     suggestionsList.model = DBManager.searchUsers(text);
-                }
-
-                var combined = suggestionsList.model.concat(suggestionsList.selectedUsers);
-                combined = combined.filter(function(name, index) {
-                    return combined.indexOf(name) === index;
-                });
-                suggestionsList.model = text ? combined : suggestionsList.selectedUsers;
+                } else if (text.length === 0)
+                    suggestionsList.chosen = false;
             }
-        }
-
-        Label {
-            Layout.preferredWidth: parent.width / 2.5
-            Layout.alignment: Qt.AlignRight | Qt.AlignTop
-            Layout.minimumHeight: height
-
-            text: "User list"
-            font.family: Style.fontName
-            font.pointSize: 14
-            color: Style.mainTextColor
         }
 
         ScrollView {
             Layout.preferredWidth: parent.width / 2.5
-            Layout.alignment: Qt.AlignRight | Qt.AlignTop
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
             Layout.minimumHeight: height
 
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
@@ -218,65 +222,63 @@ Dialog {
 
                 anchors.fill: parent
 
-                property var selectedUsers: [Global.settings.lastLoggedLocalUser.username]
+                property bool chosen: false
 
                 model: []
 
-                delegate: BaseCheckBox {
-                    id: _itemDelegate
+                delegate: ItemDelegate {
+                    id: itemDelegate
 
-                    tooltipText: "Users list"
-                    name: modelData
+                    width: suggestionsList.width
+                    height: 50
 
-                    onIsCheckedChanged: {
-                        suggestionsList.updateSelectedUsers(name, isChecked);
+                    background: Rectangle {
+                        color: itemDelegate.hovered ? Style.bgTileColor : Style.appTransparent
+                        border.width: 1
+                        border.color: Style.bgTileColor
                     }
 
-                    Component.onCompleted: {
-                        if (name === Global.settings.lastLoggedLocalUser.username)
-                            enabled = false;
+                    contentItem: Item {
+                        anchors.fill: parent
 
-                        if (suggestionsList.selectedUsers.indexOf(name) !== -1)
-                            isChecked = true;
-                    }
-                }
+                        Text {
+                            id: _itemText
 
-                Component.onCompleted: {
-                    model = selectedUsers;
-                }
+                            anchors {
+                                left: parent.left
+                                leftMargin: 5
+                                verticalCenter: parent.verticalCenter
+                            }
 
-                function updateSelectedUsers(name, isChecked) {
-                    var updatedList;
-                    if (isChecked) {
-                        updatedList = selectedUsers.concat([name]);
-                        updatedList = updatedList.filter(function(name, index) {
-                           return updatedList.indexOf(name) === index;
-                        });
-                    } else {
-                        var index = selectedUsers.indexOf(name);
-
-                        if (index !== -1) {
-                            updatedList = selectedUsers.slice(0, index).concat(selectedUsers.slice(index + 1));
+                            text: suggestionsList.model[index]
+                            color: Style.mainTextColor
+                            verticalAlignment: Text.AlignVCenter
+                            padding: 10
                         }
                     }
-                    selectedUsers = updatedList;
+
+                    onClicked: {
+                        suggestionsList.chosen = true;
+                        searchField.text = _itemText.text;
+                        suggestionsList.model = [];
+                    }
                 }
             }
         }
     }
 
     function verifyData() {
-        if (_projectName.text === "") {
-            _projectName.isWarningShown = true;
-            _projectName.warnToolTiptext = "Enter project name";
-            _projectName.warnPopUpMessage = "Project name was not entered";
+        if (_taskName.text === "") {
+            _taskName.isWarningShown = true;
+            _taskName.warnToolTiptext = "Enter task name";
+            _taskName.warnPopUpMessage = "Task name was not entered";
             return false;
         }
 
-        if (suggestionsList.selectedUsers === []) {
+        if (searchField.text === "") {
             searchField.isWarningShown = true;
-            searchField.warnToolTiptext = "Add users to projects";
-            searchField.warnPopUpMessage = "Users were not added to project";
+            searchField.warnToolTiptext = "Add user to task";
+            searchField.warnPopUpMessage = "User was not added to task";
             return false;
         }
 

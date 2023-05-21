@@ -125,6 +125,13 @@ Page {
         tooltipText: "Delete selected projects"
         clip: true
         visible: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+        enabled: false
+
+        onClicked: {
+            DBManager.removeProjects(listView.checkedItems);
+            listView.model = DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? DBManager.getAllProjects()
+                                        : DBManager.getUserProjects(Global.settings.lastLoggedLocalUser.username);
+        }
     }
 
     BaseButton {
@@ -149,8 +156,52 @@ Page {
         visible: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
 
         onClicked: {
-            console.log("SAVED")
+            var res = DBManager.changeProjectNameDesc(listView.model[listView.currentIndex], _projectName.text, _projectDescription.text);
+
+            if (res === 0) {
+                Global.notification.showSuccessMessage("Project name/description was changed successfully");
+                listView.model = DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? DBManager.getAllProjects()
+                                            : DBManager.getUserProjects(Global.settings.lastLoggedLocalUser.username);
+                console.log("Project name/desc changed");
+                enabled = false;
+                buttonText = "Save changes";
+            } else if (res === 1) {
+                Global.notification.showErrorMessage("Could not change project name/description!");
+                console.error("Some DB error");
+            } else {
+                Global.notification.showWarningMessage("This project name already exists!");
+                console.warn("Project name already used");
+            }
         }
+    }
+
+    BaseButton {
+        id: _createTaskButton
+
+        anchors {
+            right: parent.right
+            rightMargin: 5
+        }
+
+        z: 1
+        expectedWidth: 30
+        expectedHeight: 20
+        baseColor: Style.bgColor
+        borderColor: Style.mainTextColor
+        textColor: Style.mainTextColor
+        buttonText: "Create task"
+        font.family: Style.fontName
+        tooltipText: "Create new task"
+        clip: true
+        visible: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+
+        onClicked: {
+            _taskCreation.open();
+        }
+    }
+
+    TaskDialog {
+        id: _taskCreation
     }
 
     ScrollView {
@@ -172,6 +223,8 @@ Page {
 
             anchors.fill: parent
 
+            property var checkedItems: []
+
             spacing: 5
             model: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? DBManager.getAllProjects()
                      : DBManager.getUserProjects(Global.settings.lastLoggedLocalUser.username)
@@ -188,13 +241,48 @@ Page {
                     border.color: Style.bgTileColor
                 }
 
-                contentItem: Text {
-                    id: _itemText
+                contentItem: Item {
+                    anchors.fill: parent
 
-                    text: listView.model[index]
-                    color: Style.mainTextColor
-                    verticalAlignment: Text.AlignVCenter
-                    padding: 10
+                    Text {
+                        id: _itemText
+
+                        anchors {
+                            left: parent.left
+                            leftMargin: 5
+                            verticalCenter: parent.verticalCenter
+                        }
+
+                        text: listView.model[index]
+                        color: Style.mainTextColor
+                        verticalAlignment: Text.AlignVCenter
+                        padding: 10
+                    }
+
+                    BaseCheckBox {
+                        anchors {
+                            right: parent.right
+                            rightMargin: 25
+                            verticalCenter: _itemText.verticalCenter
+                        }
+
+                        tooltipText: "Check this box if you want to mark the project for deletion"
+
+                        onIsCheckedChanged: {
+                            var checked = listView.checkedItems;
+
+                            if(isChecked) {
+                                checked.push(_itemText.text);
+                            } else {
+                                var index = listView.checkedItems.indexOf(_itemText.text);
+                                if(index !== -1) {
+                                    checked.splice(index, 1);
+                                }
+                            }
+
+                            listView.checkedItems = checked;
+                        }
+                    }
                 }
 
                 onClicked: {
@@ -203,9 +291,15 @@ Page {
                 }
             }
 
+            onCheckedItemsChanged: {
+                _deleteProjectButton.enabled = checkedItems.length > 0;
+                _deleteProjectButton.buttonText = checkedItems.length > 0 ? "Delete project(s)*" : "Delete project(s)";
+            }
+
             onCurrentIndexChanged:  {
                 _projectName.text = model[currentIndex];
                 _projectDescription.text = DBManager.getProjectDescription(_projectName.text);
+                _stackLayout.currentIndex = currentIndex;
             }
         }
     }
@@ -241,6 +335,7 @@ Page {
 
             onEditingFinished: {
                 _saveChangesButton.text = "Save changes*";
+                _saveChangesButton.enabled = true;
             }
         }
     }
@@ -277,22 +372,11 @@ Page {
 
                 onEditingFinished: {
                     _saveChangesButton.text = "Save changes*";
+                    _saveChangesButton.enabled = true;
                 }
             }
         }
     }
-
-//    BaseTask {
-//        width: parent.width - (_createProjectButton.width + _deleteProjectButton.width)
-//        height: 40
-
-//        anchors.top: _projectDescBg.bottom
-//        anchors.topMargin: 10
-//        anchors.right: parent.right
-
-//        taskName: "asdas"
-//        taskDescription: "akjsfaksf"
-//    }
 
     StackLayout {
         id: _stackLayout
@@ -308,27 +392,36 @@ Page {
 
         currentIndex: listView.currentIndex
 
-        ScrollView {
-            Layout.alignment: Qt.AlignTop
-            clip: true
+        Repeater {
+            id: _taskStack
 
-            ListView {
-                anchors.fill: parent
+            model: listView.model
 
-                model: DBManager.getAllTasks(listView.model[_stackLayout.currentIndex])
-                spacing: 10
+            ScrollView {
+                Layout.alignment: Qt.AlignTop
+                clip: true
 
-                delegate: ItemDelegate {
-                    width: parent.width
-                    height: 50
+                ListView {
+                    id: _taskList
 
-                    background: Rectangle {
-                        color: Style.appTransparent
-                    }
+                    anchors.fill: parent
 
-                    contentItem: BaseTask {
-                        projectName: listView.model[_stackLayout.currentIndex]
-                        taskName: modelData
+                    model: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? DBManager.getAllTasks(_taskStack.model[_stackLayout.currentIndex])
+                                                                                    : DBManager.getUserTasks(_taskStack.model[_stackLayout.currentIndex], Global.settings.lastLoggedLocalUser.username)
+                    spacing: 10
+
+                    delegate: ItemDelegate {
+                        width: parent.width
+                        height: 50
+
+                        background: Rectangle {
+                            color: Style.appTransparent
+                        }
+
+                        contentItem: BaseTask {
+                            projectName: listView.model[_stackLayout.currentIndex]
+                            taskName: modelData
+                        }
                     }
                 }
             }

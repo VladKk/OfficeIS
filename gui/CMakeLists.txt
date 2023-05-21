@@ -36,6 +36,7 @@ qt_add_qml_module(gui
         widgets/Notification.qml
         widgets/PersonalSettingsPopUp.qml
         widgets/ProjectDialog.qml
+        widgets/TaskDialog.qml
         widgets/TitleBarButton.qml
         widgets/WarningSymbol.qml
     RESOURCES

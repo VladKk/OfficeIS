@@ -9,7 +9,7 @@ Rectangle {
 
     property string projectName
     property alias taskName: _taskName.text
-    property alias taskDescription: _taskDesc.text
+    property string currentName
 
     color: Style.bgColor
     border.color: Style.mainAppColor
@@ -51,43 +51,6 @@ Rectangle {
         onTextChanged: _ok.enabled = true
     }
 
-    TextField {
-        id: _taskDesc
-        anchors {
-            verticalCenter: parent.verticalCenter
-            left: _taskName.right
-            leftMargin: 10
-            right: _dueDateText.left
-            rightMargin: 10
-        }
-
-        readOnly: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
-        placeholderTextColor: Style.mainAppColor
-        color: Style.mainTextColor
-        font.pointSize: 12
-        verticalAlignment: Text.AlignVCenter
-        font.family: Style.fontName
-        selectionColor: Style.mainAppColor
-
-        background: Rectangle {
-            color: Style.appTransparent
-            border.color: Style.mainAppColor
-            border.width: 1
-
-            MouseArea {
-                id: _taskDescMouseArea
-                anchors {
-                    fill: parent
-                    margins: -10
-                }
-                cursorShape: Qt.IBeamCursor
-                hoverEnabled: true
-            }
-        }
-
-        onTextChanged: _ok.enabled = true
-    }
-
     Label {
         id: _dueDateText
 
@@ -107,7 +70,7 @@ Rectangle {
 
         width: _status.width
         height: _status.height
-        defaultDate: DBManager.getTaskDueDate(root.projectName, _taskName.text, Global.settings.lastLoggedLocalUser.username)
+        defaultDate: DBManager.getTaskDueDate(root.projectName, _taskName.text)
         readonly: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
 
         anchors {
@@ -115,6 +78,8 @@ Rectangle {
             right: _status.left
             rightMargin: 10
         }
+
+        onTextChanged: _ok.enabled = true;
     }
 
     BaseComboBox {
@@ -133,7 +98,7 @@ Rectangle {
         onCurrentTextChanged: _ok.enabled = true
 
         Component.onCompleted: {
-            var currentStatus = DBManager.getTaskStatus(root.projectName, _taskName.text, Global.settings.lastLoggedLocalUser.username);
+            var currentStatus = DBManager.getTaskStatus(root.projectName, _taskName.text);
             currentStatus = currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1).toLowerCase();
 
             currentIndex = model.indexOf(currentStatus);
@@ -162,5 +127,14 @@ Rectangle {
             width: parent.width - 5
             height: parent.height - 5
         }
+
+        onClicked: {
+            DBManager.updateTask(currentName, projectName, _taskName.text, Date.fromLocaleString(Qt.locale(), _dueDate.text, "dd/MM/yyyy"), _status.currentText);
+            Global.notification.showSuccessMessage("Task %1 was changed successfully".arg(_taskName.text));
+        }
+    }
+
+    Component.onCompleted: {
+        currentName = _taskName.text;
     }
 }

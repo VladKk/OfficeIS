@@ -49,13 +49,23 @@ public:
     Q_INVOKABLE uint8_t createProject(const QString &name,
                                       const QString &description,
                                       const QStringList &userList);
-    Q_INVOKABLE QString getTaskStatus(const QString &project,
-                                      const QString &taskName,
-                                      const QString &username);
-    Q_INVOKABLE QDate getTaskDueDate(const QString &project,
-                                     const QString &taskName,
-                                     const QString &username);
+    Q_INVOKABLE QString getTaskStatus(const QString &project, const QString &taskName);
+    Q_INVOKABLE QDate getTaskDueDate(const QString &project, const QString &taskName);
     Q_INVOKABLE QStringList getAllTasks(const QString &project);
+    Q_INVOKABLE QStringList getUserTasks(const QString &project, const QString &username);
+    Q_INVOKABLE uint8_t changeProjectNameDesc(const QString &currentName,
+                                              const QString &newName,
+                                              const QString &newDesc);
+    Q_INVOKABLE void removeProjects(const QStringList &projects);
+    Q_INVOKABLE void updateTask(const QString &currentName,
+                                const QString &project,
+                                const QString &newName,
+                                const QDate &newDate,
+                                const QString &newStatus);
+    Q_INVOKABLE uint8_t createTask(const QString &project,
+                                   const QString &name,
+                                   const QDate &due_date,
+                                   const QString &user);
 
 private:
     void initDB();

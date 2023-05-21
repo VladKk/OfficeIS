@@ -11,13 +11,14 @@ Item {
     property date minDate: new Date(1970, 0, 1) // 1st of January 1970
     property date maxDate: new Date(2060, 11, 31) // 31st of December 2060
     property alias readonly: dateInput.readOnly
+    property alias text: dateInput.text
 
     TextField {
         id: dateInput
         width: parent.width
         anchors.centerIn: parent
         text: Qt.formatDate(defaultDate, "dd/MM/yyyy")
-        validator: RegularExpressionValidator { regularExpression: /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[012])\.(19[0-9][0-9]|20[0-5][0-9]|2060)$/ }
+        validator: RegularExpressionValidator { regularExpression: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19[0-9][0-9]|20[0-5][0-9]|2060)$/ }
         inputMethodHints: Qt.ImhDate
 
         placeholderTextColor: Style.mainAppColor
