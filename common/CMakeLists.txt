@@ -9,11 +9,14 @@ qt_add_qml_module(common
         utils.cpp
         dbmanager.h
         dbmanager.cpp
+        equipmentmodel.h
+        equipmentmodel.cpp
         qmldir
     RESOURCES
         sql/Users.sql
         sql/Tasks.sql
         sql/Projects.sql
+        sql/Equipment.sql
     PLUGIN_TARGET common
 )
 

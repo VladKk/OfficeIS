@@ -23,7 +23,7 @@ FilteringModel {
     MenuTile {
         buttonName: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? "All equipment" : "My equipment"
         onClicked: {
-            Global.notification.showMessage(qsTr( "Functionality not implemented yet" ), 10000);
+            Global.mainStackView.replacePage("qrc:/gui/pages/MyEquipment.qml");
         }
     }
     MenuTile {

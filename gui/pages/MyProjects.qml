@@ -26,7 +26,7 @@ Page {
         }
 
         Text {
-            text: "My Projects"
+            text: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? "All projects" : "My projects"
             font.family: Style.fontName
             anchors.centerIn: parent
             font.pointSize: 20

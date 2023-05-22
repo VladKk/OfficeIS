@@ -14,6 +14,7 @@ qt_add_qml_module(gui
         pages/AppAbout.qml
         pages/StartPage.qml
         pages/MyDocs.qml
+        pages/MyEquipment.qml
         pages/MyProjects.qml
         pages/account/ForgetPass.qml
         pages/account/LoginUser.qml

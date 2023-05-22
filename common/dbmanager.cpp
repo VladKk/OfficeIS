@@ -64,6 +64,11 @@ void DBManager::initDB()
         m_db.rollback();
         return;
     }
+    if (!query.exec(m_utils.readFileAsString(":/common/sql/Equipment.sql"))) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return;
+    }
     m_db.commit();
 }
 
