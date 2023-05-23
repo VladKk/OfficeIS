@@ -74,39 +74,266 @@ Page {
         }
     }
 
-    TableView {
-        id: _tableView
+    Row {
+        id: _colNames
+        anchors {
+            top: parent.top
+            left: _addRow.right
+            leftMargin: 1
+        }
 
-        anchors.fill: parent
-        columnSpacing: 1
-        rowSpacing: 1
-        boundsBehavior: Flickable.StopAtBounds
+        spacing: 1
 
-        model: EquipmentTableModel {}
+        Text {
+            text: "Equipment name"
+            font.family: Style.fontName
+            font.pointSize: 20
+            color: Style.mainTextColor
+            height: 40
+            width: _tableView.width / 4
+            horizontalAlignment: Text.AlignHCenter
+        }
+        Text {
+            text: "Assignee"
+            font.family: Style.fontName
+            font.pointSize: 20
+            color: Style.mainTextColor
+            height: 40
+            width: _tableView.width / 4
+            horizontalAlignment: Text.AlignHCenter
+        }
+        Text {
+            text: "Inventory number"
+            font.family: Style.fontName
+            font.pointSize: 20
+            color: Style.mainTextColor
+            height: 40
+            width: _tableView.width / 4
+            horizontalAlignment: Text.AlignHCenter
+        }
+        Text {
+            text: "Status"
+            font.family: Style.fontName
+            font.pointSize: 20
+            color: Style.mainTextColor
+            height: 40
+            width: _tableView.width / 4
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
 
-        delegate: DelegateChooser {
-            DelegateChoice {
-                column: 0
-                delegate: Text {
-                    text: model.name
-                }
+    Column {
+        id: _rowsNums
+        anchors {
+            left: parent.left
+            top: _addRow.bottom
+            topMargin: 1
+        }
+
+        spacing: 1
+
+        Repeater {
+            model: _tableView.rows
+
+            Text {
+                text: modelData + 1
+                font.family: Style.fontName
+                font.pointSize: 20
+                color: Style.mainTextColor
+                height: 40
+                width: 40
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
-            DelegateChoice {
-                column: 1
-                delegate: Text {
-                    text: model.username
-                }
+        }
+    }
+
+    BaseButton {
+        id: _addRow
+
+        anchors {
+            top: parent.top
+            left: parent.left
+        }
+
+        expectedWidth: _rowsNums.width
+        expectedHeight: 40
+        baseColor: Style.bgColor
+        borderColor: Style.mainTextColor
+
+        ColorImage {
+            anchors.centerIn: parent
+            color: Style.mainAppColor
+            source: "qrc:/gui/images/symbols/plus.png"
+            fillMode: Image.PreserveAspectFit
+            width: parent.width - 5
+            height: parent.height - 5
+        }
+
+        onClicked: {
+            console.log("addrow Clicked");
+        }
+    }
+
+    BaseButton {
+        id: _deleteRow
+
+        anchors {
+            bottom: parent.bottom
+            right: _saveChanges.left
+            rightMargin: 10
+        }
+
+        expectedWidth: 40
+        expectedHeight: 40
+        baseColor: Style.bgColor
+        borderColor: Style.mainTextColor
+        buttonText: "Delete row"
+        tooltipText: "Delete selected row"
+
+        onClicked: {
+            console.log("delete Clicked");
+        }
+    }
+
+    BaseButton {
+        id: _saveChanges
+
+        anchors {
+            bottom: parent.bottom
+            right: parent.right
+        }
+
+        expectedWidth: 40
+        expectedHeight: 40
+        baseColor: Style.bgColor
+        borderColor: Style.mainTextColor
+        buttonText: "Save changes"
+        tooltipText: "Save entered changes"
+
+        onClicked: {
+            console.log("save Clicked");
+        }
+    }
+
+    ScrollView {
+        anchors {
+            top: _colNames.bottom
+            topMargin: 1
+            bottom: _saveChanges.top
+            bottomMargin: 1
+            left: _rowsNums.right
+            leftMargin: 1
+            right: parent.right
+        }
+
+        clip: true
+
+        TableView {
+            id: _tableView
+
+            anchors.fill: parent
+
+            columnSpacing: 1
+            rowSpacing: 1
+            boundsBehavior: Flickable.StopAtBounds
+
+            model: EquipmentTableModel {
+                id: _model
             }
-            DelegateChoice {
-                column: 2
-                delegate: Text {
-                    text: model.inventory_number
+
+            delegate: DelegateChooser {
+                DelegateChoice {
+                    column: 0
+                    delegate: Rectangle {
+                        implicitHeight: 40
+                        implicitWidth: _tableView.width / 4
+
+                        color: Style.bgColor
+                        border.color: Style.mainAppColor
+                        border.width: 1
+
+                        TextEdit {
+                            text: model.name
+                            anchors.fill: parent
+                            readOnly: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+                            color: Style.mainTextColor
+                            font.family: Style.fontName
+                            wrapMode: TextEdit.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            padding: 10
+                        }
+                    }
                 }
-            }
-            DelegateChoice {
-                column: 3
-                delegate: Text {
-                    text: model.status
+                DelegateChoice {
+                    column: 1
+                    delegate: Rectangle {
+                        implicitHeight: 40
+                        implicitWidth: _tableView.width / 4
+
+                        color: Style.bgColor
+                        border.color: Style.mainAppColor
+                        border.width: 1
+
+                        TextEdit {
+                            text: model.username
+                            anchors.fill: parent
+                            readOnly: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+                            color: Style.mainTextColor
+                            font.family: Style.fontName
+                            wrapMode: TextEdit.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            padding: 10
+                        }
+                    }
+                }
+                DelegateChoice {
+                    column: 2
+                    delegate: Rectangle {
+                        implicitHeight: 40
+                        implicitWidth: _tableView.width / 4
+
+                        color: Style.bgColor
+                        border.color: Style.mainAppColor
+                        border.width: 1
+
+                        TextEdit {
+                            text: model.inventory_number
+                            anchors.fill: parent
+                            readOnly: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+                            color: Style.mainTextColor
+                            font.family: Style.fontName
+                            wrapMode: TextEdit.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            padding: 10
+                        }
+                    }
+                }
+                DelegateChoice {
+                    column: 3
+                    delegate: Rectangle {
+                        implicitHeight: 40
+                        implicitWidth: _tableView.width / 4
+
+                        color: Style.bgColor
+                        border.color: Style.mainAppColor
+                        border.width: 1
+
+                        TextEdit {
+                            text: model.status
+                            anchors.fill: parent
+                            readOnly: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+                            color: Style.mainTextColor
+                            font.family: Style.fontName
+                            wrapMode: TextEdit.Wrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            padding: 10
+                        }
+                    }
                 }
             }
         }

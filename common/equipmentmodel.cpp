@@ -33,9 +33,9 @@ void EquipmentTableModel::refresh()
 {
     QSqlDatabase::database().transaction();
     QSqlQuery query;
-    query.prepare("SELECT equipment.name, users.username, equipment.inventory_number, "
-                  "equipment.status "
-                  "FROM equipment JOIN users ON equipment.user_id = users.id;");
+    query.prepare("SELECT equipment.name, COALESCE(users.username, 'None') AS username, "
+                  "equipment.inventory_number, equipment.status FROM equipment LEFT JOIN users ON "
+                  "equipment.user_id = users.id;");
 
     if (!query.exec()) {
         LOG_FAILED_QUERY(query);

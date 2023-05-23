@@ -23,9 +23,7 @@ public:
     EquipmentTableModel(QObject *parent = nullptr);
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-
     QHash<int, QByteArray> roleNames() const override;
-
-    void refresh();
+    Q_INVOKABLE void refresh();
 };
 OFFICEIS_NS_END

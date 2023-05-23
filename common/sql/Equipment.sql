@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS equipment (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     user_id INTEGER REFERENCES users(id),
-    inventory_number VARCHAR(255) NOT NULL,
+    inventory_number VARCHAR(255) NOT NULL UNIQUE,
     status equipment_status NOT NULL DEFAULT 'AVAILABLE'
 );
