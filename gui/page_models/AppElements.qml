@@ -29,14 +29,7 @@ FilteringModel {
     MenuTile {
         buttonName: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? "All teams" : "My team"
         onClicked: {
-            Global.notification.showMessage(qsTr( "Functionality not implemented yet" ), 10000);
-        }
-    }
-    MenuTile {
-        buttonName: "Database management"
-        ModelAttached.isValid: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "ADMIN"
-        onClicked: {
-            Global.notification.showMessage(qsTr( "Functionality not implemented yet" ), 10000);
+            Global.mainStackView.replacePage("qrc:/gui/pages/MyTeam.qml");
         }
     }
 }

@@ -158,11 +158,6 @@ ApplicationWindow {
                         BaseMenu {
                             title: qsTr("File")
                             Action {
-                                text: qsTr("&How To..")
-                                shortcut: "Ctrl+Alt+H"
-                                onTriggered: Global.notification.showMessage(qsTr( "Not implemented yet" ), 10000);
-                            }
-                            Action {
                                 text: qsTr("&Quit")
                                  shortcut: "Ctrl+Alt+Q"
                                 onTriggered: Qt.quit()

@@ -639,3 +639,50 @@ uint8_t DBManager::createTask(const QString &project,
     m_db.commit();
     return EXIT_SUCCESS;
 }
+
+uint8_t DBManager::addEquipment(const QString &name, const QString &inventoryNumber)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    query.prepare("SELECT name FROM equipment WHERE inventory_number=?;");
+    query.addBindValue(inventoryNumber);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return EXIT_FAILURE;
+    }
+
+    if (query.next()) {
+        m_db.commit();
+        return 2;
+    }
+
+    query.prepare("INSERT INTO equipment (name, inventory_number) VALUES (?, ?);");
+    query.addBindValue(name);
+    query.addBindValue(inventoryNumber);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return EXIT_FAILURE;
+    }
+
+    m_db.commit();
+
+    return EXIT_SUCCESS;
+}
+
+void DBManager::deleteEquipmentRow(const QString &inventoryNumber)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    query.prepare("DELETE FROM equipment WHERE inventory_number=?;");
+    query.addBindValue(inventoryNumber);
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return;
+    }
+
+    m_db.commit();
+    return;
+}

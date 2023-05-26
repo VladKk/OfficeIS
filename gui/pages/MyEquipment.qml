@@ -122,31 +122,60 @@ Page {
         }
     }
 
-    Column {
-        id: _rowsNums
-        anchors {
-            left: parent.left
-            top: _addRow.bottom
-            topMargin: 1
-        }
+//    ScrollView {
+//        anchors {
+//            left: parent.left
+//            top: _addRow.bottom
+//            topMargin: 1
+//        }
 
-        spacing: 1
+        Column {
+            id: _rowsNums
 
-        Repeater {
-            model: _tableView.rows
+            property var selectedRows: []
 
-            Text {
-                text: modelData + 1
-                font.family: Style.fontName
-                font.pointSize: 20
-                color: Style.mainTextColor
-                height: 40
-                width: 40
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+
+            anchors {
+                left: parent.left
+                top: _addRow.bottom
+                topMargin: 1
+            }
+//            anchors.fill: parent
+
+            spacing: 1
+
+            Repeater {
+                model: _tableView.rows
+
+                Text {
+                    text: modelData + 1
+                    font.family: Style.fontName
+                    font.pointSize: 20
+                    color: Style.mainTextColor
+                    height: 40
+                    width: 40
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    MouseArea {
+                        anchors.fill: parent
+
+                        onClicked: {
+                            parent.text = parent.text.indexOf("+") === -1 ? parent.text + "+" : parent.text.slice(0, -1);
+
+                            if (parent.text.indexOf("+") !== -1)
+                                _rowsNums.selectedRows.push(parseInt(parent.text.slice(0, -1)));
+                            else {
+                                var index = _rowsNums.selectedRows.indexOf(parseInt(parent.text))
+                                if (index !== -1)
+                                    _rowsNums.selectedRows.splice(index, 1);
+                            }
+                        }
+                    }
+                }
             }
         }
-    }
+//    }
 
     BaseButton {
         id: _addRow
@@ -171,7 +200,16 @@ Page {
         }
 
         onClicked: {
-            console.log("addrow Clicked");
+            _eqDiag.open();
+        }
+    }
+
+    EquipmentDialog {
+        id: _eqDiag
+
+        onRefreshChanged: {
+            if (refresh)
+                _model.refresh();
         }
     }
 
@@ -180,39 +218,24 @@ Page {
 
         anchors {
             bottom: parent.bottom
-            right: _saveChanges.left
-            rightMargin: 10
-        }
-
-        expectedWidth: 40
-        expectedHeight: 40
-        baseColor: Style.bgColor
-        borderColor: Style.mainTextColor
-        buttonText: "Delete row"
-        tooltipText: "Delete selected row"
-
-        onClicked: {
-            console.log("delete Clicked");
-        }
-    }
-
-    BaseButton {
-        id: _saveChanges
-
-        anchors {
-            bottom: parent.bottom
             right: parent.right
+            rightMargin: 5
         }
 
         expectedWidth: 40
         expectedHeight: 40
         baseColor: Style.bgColor
         borderColor: Style.mainTextColor
-        buttonText: "Save changes"
-        tooltipText: "Save entered changes"
+        buttonText: "Delete selected rows"
+        tooltipText: "Delete selected rows"
 
         onClicked: {
-            console.log("save Clicked");
+            _rowsNums.selectedRows.forEach(function(rowNum) {
+                var invNum = _tableView.model.get(rowNum - 1).inventory_number;
+                DBManager.deleteEquipmentRow(invNum);
+            });
+            _rowsNums.selectedRows = [];
+            _model.refresh();
         }
     }
 
@@ -220,7 +243,7 @@ Page {
         anchors {
             top: _colNames.bottom
             topMargin: 1
-            bottom: _saveChanges.top
+            bottom: _deleteRow.top
             bottomMargin: 1
             left: _rowsNums.right
             leftMargin: 1
@@ -263,6 +286,10 @@ Page {
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
                             padding: 10
+
+                            onEditingFinished: {
+                                _model.updateName(row, text);
+                            }
                         }
                     }
                 }
@@ -286,6 +313,10 @@ Page {
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
                             padding: 10
+
+                            onEditingFinished: {
+                                _model.updateUsername(row, text);
+                            }
                         }
                     }
                 }
@@ -309,6 +340,10 @@ Page {
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
                             padding: 10
+
+                            onEditingFinished: {
+                                _model.updateInventoryNumber(row, text);
+                            }
                         }
                     }
                 }
@@ -322,7 +357,7 @@ Page {
                         border.color: Style.mainAppColor
                         border.width: 1
 
-                        TextEdit {
+                        TextInput {
                             text: model.status
                             anchors.fill: parent
                             readOnly: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
@@ -332,6 +367,11 @@ Page {
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
                             padding: 10
+                            validator: RegularExpressionValidator { regularExpression: /^(AVAILABLE|IN_USE|IN_REPAIR|RETIRED)$/ }
+
+                            onEditingFinished: {
+                                _model.updateStatus(row, text);
+                            }
                         }
                     }
                 }

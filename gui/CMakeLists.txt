@@ -16,6 +16,7 @@ qt_add_qml_module(gui
         pages/MyDocs.qml
         pages/MyEquipment.qml
         pages/MyProjects.qml
+        pages/MyTeam.qml
         pages/account/ForgetPass.qml
         pages/account/LoginUser.qml
         pages/account/RegisterUser.qml
@@ -28,6 +29,7 @@ qt_add_qml_module(gui
         widgets/BaseMenu.qml
         widgets/BaseScrollIndicator.qml
         widgets/BaseTask.qml
+        widgets/EquipmentDialog.qml
         widgets/ClearSymbol.qml
         widgets/ContextMenu.qml
         widgets/EchoModeSymbol.qml

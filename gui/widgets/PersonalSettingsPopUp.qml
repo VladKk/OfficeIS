@@ -44,7 +44,7 @@ Popup{
                 color: Style.bgColor
                 radius: _userPersSettingsPopUp.radiusPopUp
             }
-            property var settingsButtonModel: ["General", "..."] // TabNames
+            property var settingsButtonModel: ["General"] // TabNames
 
             Repeater {
                 id: _tabButtons

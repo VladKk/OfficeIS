@@ -66,6 +66,8 @@ public:
                                    const QString &name,
                                    const QDate &due_date,
                                    const QString &user);
+    Q_INVOKABLE uint8_t addEquipment(const QString &name, const QString &inventoryNumber);
+    Q_INVOKABLE void deleteEquipmentRow(const QString &inventoryNumber);
 
 private:
     void initDB();
