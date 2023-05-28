@@ -41,6 +41,7 @@ qt_add_qml_module(gui
         widgets/ProjectDialog.qml
         widgets/TaskDialog.qml
         widgets/TitleBarButton.qml
+        widgets/TeamDialog.qml
         widgets/WarningSymbol.qml
     RESOURCES
         images/windowControls/window-close.png

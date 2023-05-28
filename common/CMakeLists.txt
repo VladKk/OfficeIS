@@ -17,6 +17,7 @@ qt_add_qml_module(common
         sql/Tasks.sql
         sql/Projects.sql
         sql/Equipment.sql
+        sql/UserData.sql
     PLUGIN_TARGET common
 )
 

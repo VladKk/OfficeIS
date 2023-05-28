@@ -185,7 +185,7 @@ Dialog {
             clearSymbolApplicable: true
 
             Keys.onEnterPressed: {
-                _projectDescription.forceActiveFocus()
+                searchField.forceActiveFocus()
             }
         }
 

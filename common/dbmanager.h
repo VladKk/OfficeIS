@@ -68,6 +68,11 @@ public:
                                    const QString &user);
     Q_INVOKABLE uint8_t addEquipment(const QString &name, const QString &inventoryNumber);
     Q_INVOKABLE void deleteEquipmentRow(const QString &inventoryNumber);
+    Q_INVOKABLE QStringList getTeamsByCurrentUser(const QString &user);
+    Q_INVOKABLE QStringList getAllTeams();
+    Q_INVOKABLE QStringList getUsersByTeam(const QString &team);
+    Q_INVOKABLE bool createTeam(const QString &team, const QStringList &users);
+    Q_INVOKABLE bool removeTeam(const QString &team);
 
 private:
     void initDB();

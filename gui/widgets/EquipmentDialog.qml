@@ -146,7 +146,7 @@ Dialog {
             clearSymbolApplicable: true
 
             Keys.onEnterPressed: {
-                _projectDescription.forceActiveFocus()
+                _inventoryNum.forceActiveFocus()
             }
         }
 
@@ -162,10 +162,6 @@ Dialog {
             fieldIcon: "qrc:/gui/images/symbols/pencil.png"
 
             clearSymbolApplicable: true
-
-            Keys.onEnterPressed: {
-                searchField.forceActiveFocus();
-            }
         }
     }
 

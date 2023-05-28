@@ -69,6 +69,11 @@ void DBManager::initDB()
         m_db.rollback();
         return;
     }
+    if (!query.exec(m_utils.readFileAsString(":/common/sql/UserData.sql"))) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return;
+    }
     m_db.commit();
 }
 
@@ -685,4 +690,125 @@ void DBManager::deleteEquipmentRow(const QString &inventoryNumber)
 
     m_db.commit();
     return;
+}
+
+QStringList DBManager::getTeamsByCurrentUser(const QString &user)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    QStringList res;
+    query.prepare(
+        "SELECT teams.name FROM teams INNER JOIN user_teams ON teams.id=user_teams.team_id INNER "
+        "JOIN users ON user_teams.user_id=users.id WHERE users.username=?;");
+    query.addBindValue(user);
+
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return res;
+    }
+
+    m_db.commit();
+
+    while (query.next())
+        res << query.value(0).toString();
+
+    return res;
+}
+
+QStringList DBManager::getAllTeams()
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    QStringList res;
+    query.prepare("SELECT name FROM teams;");
+
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return res;
+    }
+
+    m_db.commit();
+
+    while (query.next())
+        res << query.value(0).toString();
+
+    return res;
+}
+
+QStringList DBManager::getUsersByTeam(const QString &team)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    QStringList res;
+    query.prepare(
+        "SELECT users.username FROM users INNER JOIN user_teams ON users.id=user_teams.user_id "
+        "INNER JOIN teams ON user_teams.team_id=teams.id WHERE teams.name=?;");
+    query.addBindValue(team);
+
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return res;
+    }
+
+    m_db.commit();
+
+    while (query.next())
+        res << query.value(0).toString();
+
+    return res;
+}
+
+bool DBManager::createTeam(const QString &team, const QStringList &users)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+
+    QStringList quotedUsers;
+    for (const QString &user : users)
+        quotedUsers << ("'" + user + "'");
+
+    QString usersList = quotedUsers.join(',');
+    QString sql = QString("CALL create_team_with_users('%1', ARRAY[%2]);").arg(team).arg(usersList);
+
+    if (!query.exec(sql)) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return false;
+    }
+
+    m_db.commit();
+
+    return true;
+}
+
+bool DBManager::removeTeam(const QString &team)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+
+    QString formattedTeam = team;
+    formattedTeam = formattedTeam.toLower();
+    formattedTeam[0] = formattedTeam[0].toUpper();
+
+    query.prepare("SELECT delete_team(?);");
+    query.addBindValue(formattedTeam);
+
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return false;
+    }
+
+    if (query.next()) {
+        m_db.commit();
+
+        return query.value(0).toBool();
+    }
+
+    m_db.commit();
+
+    return false;
 }
