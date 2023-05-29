@@ -27,7 +27,7 @@ FilteringModel {
         }
     }
     MenuTile {
-        buttonName: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? "All teams" : "My team"
+        buttonName: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? "All teams" : "My teams"
         onClicked: {
             Global.mainStackView.replacePage("qrc:/gui/pages/MyTeam.qml");
         }

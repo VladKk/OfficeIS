@@ -26,7 +26,7 @@ Page {
         }
 
         Text {
-            text: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? "All teams" : "My team"
+            text: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER" ? "All teams" : "My teams"
             font.family: Style.fontName
             anchors.centerIn: parent
             font.pointSize: 20
@@ -120,11 +120,41 @@ Page {
         }
     }
 
+    BaseButton {
+        id: _saveChanges
+
+        anchors {
+            top: parent.top
+            left: _addTeam.right
+            leftMargin: 10
+        }
+
+        buttonText: "Save changes"
+        expectedWidth: 50
+        expectedHeight: 40
+        baseColor: Style.bgColor
+        borderColor: Style.mainTextColor
+        enabled: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+        visible: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+
+        onClicked: {
+            var ok = DBManager.updateUserData(_userData.clickedUser, _userEmail.text, _userPhone.text, _userSalary.text, _userManager.text, _userVacation.text, _userStartDate.text, _userEndDate.text);
+
+            if (ok) {
+                Global.notification.showSuccessMessage("User data updated successfully");
+                console.log("User data updated");
+            } else {
+                Global.notification.showErrorMessage("Could not update user data. Please, check if email and phone number are unique");
+                console.log("User data update failed");
+            }
+        }
+    }
+
     RowLayout {
         id: _removeTeam
 
         anchors {
-            left: _addTeam.right
+            left: _saveChanges.right
             leftMargin: 10
             top: parent.top
         }
@@ -243,6 +273,254 @@ Page {
                     verticalAlignment: Text.AlignVCenter
                     padding: 10
                 }
+
+                onClicked: {
+                    _userData.currentUserData = DBManager.getUserData(_itemText.text);
+                    _userData.clickedUser = _itemText.text;
+                }
+            }
+        }
+    }
+
+    Item {
+        id: _userData
+
+        anchors {
+            left: scrollView.right
+            leftMargin: 5
+            top: _removeTeam.bottom
+            topMargin: 5
+            right: parent.right
+            bottom: parent.bottom
+        }
+
+        property var currentUserData
+        property string clickedUser
+
+        Label {
+            id: _userDataLabel
+
+            anchors {
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            text: "User data"
+            font.family: Style.fontName
+            font.pointSize: 14
+            color: Style.mainTextColor
+        }
+
+        ColumnLayout {
+            anchors {
+                left: parent.left
+                top: _userDataLabel.bottom
+                topMargin: 5
+                leftMargin: 5
+            }
+            spacing: 20
+            width: 250
+
+            Label {
+                id: _userEmailLabel
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                text: "Email"
+                font.family: Style.fontName
+                font.pointSize: 14
+                color: Style.mainTextColor
+            }
+            FormField {
+                id: _userEmail
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                width: 150
+
+                placeHolderText: "User email"
+                text: _userData.currentUserData.email
+                regExpression: /\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z|a-z]{2,}\\b/
+
+                textUneditable: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+            }
+
+            Label {
+                id: _userPhoneLabel
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                text: "Phone number"
+                font.family: Style.fontName
+                font.pointSize: 14
+                color: Style.mainTextColor
+            }
+            FormField {
+                id: _userPhone
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                width: 150
+
+                placeHolderText: "User phone number"
+                text: _userData.currentUserData.phone
+                regExpression: /^\\+\\d{1,3}\\d+$/
+
+                textUneditable: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+            }
+
+            Label {
+                id: _userManagerLabel
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                text: "Manager"
+                font.family: Style.fontName
+                font.pointSize: 14
+                color: Style.mainTextColor
+            }
+            FormField {
+                id: _userManager
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                width: 150
+
+                placeHolderText: "User manager"
+                text: _userData.currentUserData.manager_name
+
+                textUneditable: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+            }
+
+            Label {
+                id: _userSalaryLabel
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                text: "Salary"
+                font.family: Style.fontName
+                font.pointSize: 14
+                color: Style.mainTextColor
+
+                visible: _userData.clickedUser === Global.settings.lastLoggedLocalUser.username || DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+            }
+            FormField {
+                id: _userSalary
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                width: 150
+
+                placeHolderText: "User salary"
+                text: _userData.currentUserData.salary
+
+                textUneditable: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+                visible: _userData.clickedUser === Global.settings.lastLoggedLocalUser.username || DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+            }
+
+            Label {
+                id: _userVacationLabel
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                text: "Vacation days"
+                font.family: Style.fontName
+                font.pointSize: 14
+                color: Style.mainTextColor
+
+                visible: _userData.clickedUser === Global.settings.lastLoggedLocalUser.username || DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+            }
+            FormField {
+                id: _userVacation
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                width: 150
+
+                placeHolderText: "User vacation days"
+                text: _userData.currentUserData.vacation_days
+
+                textUneditable: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+                visible: _userData.clickedUser === Global.settings.lastLoggedLocalUser.username || DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) === "MANAGER"
+            }
+
+            Label {
+                id: _userStartDateLabel
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                text: "Works from"
+                font.family: Style.fontName
+                font.pointSize: 14
+                color: Style.mainTextColor
+            }
+            FormField {
+                id: _userStartDate
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                width: 150
+
+                placeHolderText: "User start date"
+                text: _userData.currentUserData.start_date
+                regExpression: /^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
+
+                textUneditable: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+            }
+
+            Label {
+                id: _userEndDateLabel
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                text: "Left after"
+                font.family: Style.fontName
+                font.pointSize: 14
+                color: Style.mainTextColor
+
+                visible: _userEndDate.text
+            }
+            FormField {
+                id: _userEndDate
+
+                Layout.preferredWidth: parent.width
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                Layout.minimumHeight: height
+
+                width: 150
+
+                placeHolderText: "User end date"
+                text: _userData.currentUserData.end_date
+                regExpression: /^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
+
+                textUneditable: DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "MANAGER"
+                visible: text
             }
         }
     }

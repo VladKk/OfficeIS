@@ -73,6 +73,15 @@ public:
     Q_INVOKABLE QStringList getUsersByTeam(const QString &team);
     Q_INVOKABLE bool createTeam(const QString &team, const QStringList &users);
     Q_INVOKABLE bool removeTeam(const QString &team);
+    Q_INVOKABLE QJsonObject getUserData(const QString &username);
+    Q_INVOKABLE bool updateUserData(const QString &username,
+                                    const QString &email,
+                                    const QString &phone,
+                                    const double &salary,
+                                    const QString &manager,
+                                    const int &vacation,
+                                    const QDate &startDate,
+                                    const QDate &endDate);
 
 private:
     void initDB();

@@ -812,3 +812,103 @@ bool DBManager::removeTeam(const QString &team)
 
     return false;
 }
+
+QJsonObject DBManager::getUserData(const QString &username)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    query.prepare("SELECT user_details.email, user_details.phone, user_details.salary, "
+                  "(SELECT users.username FROM users WHERE users.id = user_details.manager_id) AS "
+                  "manager_name, "
+                  "user_details.vacation_days, user_details.start_date, user_details.end_date "
+                  "FROM user_details "
+                  "JOIN users ON user_details.user_id = users.id "
+                  "WHERE users.username = ?;");
+    query.addBindValue(username);
+
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return QJsonObject();
+    }
+
+    QJsonObject result;
+    if (query.next()) {
+        result.insert("email", QJsonValue::fromVariant(query.value("email")));
+        result.insert("phone", QJsonValue::fromVariant(query.value("phone")));
+        result.insert("salary", QJsonValue::fromVariant(query.value("salary")));
+        result.insert("manager_name", QJsonValue::fromVariant(query.value("manager_name")));
+        result.insert("vacation_days", QJsonValue::fromVariant(query.value("vacation_days")));
+        result.insert("start_date", QJsonValue::fromVariant(query.value("start_date")));
+        result.insert("end_date", QJsonValue::fromVariant(query.value("end_date")));
+    }
+
+    m_db.commit();
+
+    return result;
+}
+
+bool DBManager::updateUserData(const QString &username,
+                               const QString &email,
+                               const QString &phone,
+                               const double &salary,
+                               const QString &manager,
+                               const int &vacation,
+                               const QDate &startDate,
+                               const QDate &endDate)
+{
+    m_db.transaction();
+    QSqlQuery query(m_db);
+    int user_id = -1, manager_id = -1;
+    query.prepare("SELECT id FROM users WHERE username = :username;");
+    query.bindValue(":username", username);
+    if (!query.exec() || !query.next()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return false;
+    }
+    user_id = query.value(0).toInt();
+
+    if (!manager.isEmpty()) {
+        query.prepare("SELECT id FROM users WHERE username = :manager;");
+        query.bindValue(":manager", manager);
+        if (!query.exec() || !query.next()) {
+            LOG_FAILED_QUERY(query);
+            m_db.rollback();
+            return false;
+        }
+        manager_id = query.value(0).toInt();
+    }
+
+    query.prepare(R"(
+    UPDATE user_details
+    SET
+        email = :email,
+        phone = :phone,
+        salary = :salary,
+        manager_id = :managerId,
+        vacation_days = :vacation,
+        start_date = :startDate,
+        end_date = :endDate
+    WHERE user_id = :userId;
+    )");
+    query.bindValue(":email", email);
+    query.bindValue(":phone", phone);
+    query.bindValue(":salary", salary);
+    query.bindValue(":managerId", manager_id == -1 ? QVariant(QVariant::Int) : manager_id);
+    query.bindValue(":vacation", vacation);
+    query.bindValue(":startDate", startDate.toString("yyyy-MM-dd"));
+    query.bindValue(":endDate",
+                    endDate.isValid() ? endDate.toString("yyyy-MM-dd") : QVariant(QVariant::String));
+    query.bindValue(":userId", user_id);
+
+    if (!query.exec()) {
+        LOG_FAILED_QUERY(query);
+        m_db.rollback();
+        return false;
+    }
+
+    m_db.commit();
+
+    return true;
+}
