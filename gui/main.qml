@@ -2,7 +2,8 @@ import QtQuick
 import QtQuick.Controls
 
 import gui
-import common as Common
+import common
+import logger
 
 ApplicationWindow {
     id: rootWindow
@@ -193,14 +194,62 @@ ApplicationWindow {
                         }
 
                         BaseMenu {
-                        id: _helpMenu
+                            id: _helpMenu
 
-                        title: qsTr("Help")
-                        Action {
-                            text: qsTr("&About")
-                            shortcut: "Ctrl+Alt+A"
-                            onTriggered: Global.mainStackView.pushPage("qrc:/gui/pages/AppAbout.qml")
-                        }
+                            property BaseMenu savedDevelopSubmenu: null
+
+                            title: qsTr("Help")
+                            Action {
+                                text: qsTr("&About")
+                                shortcut: "Ctrl+Alt+A"
+                                onTriggered: Global.mainStackView.pushPage("qrc:/gui/pages/AppAbout.qml")
+                            }
+                            BaseMenu {
+                                id: _developMenu
+
+                                title: qsTr("Develop")
+
+                                Action {
+                                    id: _verboseModeAction
+
+                                    text: qsTr("&Verbose mode")
+                                    checkable: true
+                                    checked: Global.appSettings.verboseModeActive
+                                    shortcut: "Ctrl+Alt+V"
+
+                                    onTriggered: {
+                                        Logger.setVerboseMode(this.checked)
+                                        console.log("Logs switched to verbose: %1".arg(this.checked))
+                                    }
+                                }
+                                Action {
+                                    id: _inputLoggingAction
+
+                                    text: qsTr("Enable &input logging")
+                                    checkable: true
+                                    checked: Global.appSettings.inputLoggingEnabled
+                                    shortcut: "Ctrl+Alt+I"
+
+                                    onCheckedChanged: {
+                                        InputLogger.enableLogging = this.checked
+                                        console.log("Input logging enabled: %1".arg(this.checked))
+                                    }
+                                }
+                                Action {
+                                    text: qsTr("&Open logs")
+                                    shortcut: "Ctrl+Alt+O"
+
+                                    onCheckedChanged: {
+                                        Logger.openLogInBrowser();
+                                        console.log("Logs opened")
+                                    }
+                                }
+
+                                Component.onDestruction: {
+                                    Global.appSettings.verboseModeActive = _verboseModeAction.checked;
+                                    Global.appSettings.inputLoggingEnabled = _inputLoggingAction.checked;
+                                }
+                            }
                         }
                     }
 
@@ -328,17 +377,21 @@ ApplicationWindow {
         }
 
         Component.onCompleted: {
-            Common.DBManager.connectDB("localhost", 5432, "OfficeIS", "postgres", "8712");
+            DBManager.connectDB("localhost", 5432, "OfficeIS", "postgres", "8712");
 
             Global.mainStackView = stackView;
             Global.notification = _notification;
             Global.personalSettingsPopUp = pesonalSettingsPopUp;
             stackView.replacePage("qrc:/gui/pages/account/LoginUser.qml");
+
+            if (DBManager.getUserRole(Global.settings.lastLoggedLocalUser.username) !== "ADMIN") {
+                _developSubmenuVisibility.trigger();
+            }
         }
 
         Component.onDestruction: {
-            if (Common.DBManager.userIsOnline(Global.settings.lastLoggedLocalUser.username))
-                Common.DBManager.setIsOnline(Global.settings.lastLoggedLocalUser.username, false);
+            if (DBManager.userIsOnline(Global.settings.lastLoggedLocalUser.username))
+                DBManager.setIsOnline(Global.settings.lastLoggedLocalUser.username, false);
         }
     }
 
@@ -361,11 +414,28 @@ ApplicationWindow {
         }
     }
 
+    Action {
+        id: _developSubmenuVisibility
+
+        onTriggered: {
+            if (_helpMenu.menuAt(_helpMenu.count - 1) === _developMenu) {
+                _helpMenu.savedDevelopSubmenu = _helpMenu.takeMenu(_helpMenu.count - 1);
+            } else {
+                _helpMenu.addMenu(_helpMenu.savedDevelopSubmenu);
+            }
+            console.log("Develop menu is shown: %1".arg(_developMenu ? 1 : 0));
+        }
+    }
+
     function toggleMaximized() {
         if (rootWindow.visibility === Window.Maximized) {
             rootWindow.showNormal();
         } else {
             rootWindow.showMaximized();
         }
+    }
+
+    Component.onCompleted: {
+        console.log("Logs are located in %1".arg(Logger.logFilePath));
     }
 }

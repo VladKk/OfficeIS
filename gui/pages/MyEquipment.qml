@@ -122,25 +122,21 @@ Page {
         }
     }
 
-//    ScrollView {
-//        anchors {
-//            left: parent.left
-//            top: _addRow.bottom
-//            topMargin: 1
-//        }
+    ScrollView {
+        id: _rowsNumsView
+
+        anchors {
+            left: parent.left
+            top: _addRow.bottom
+            topMargin: 1
+        }
 
         Column {
             id: _rowsNums
 
             property var selectedRows: []
 
-
-            anchors {
-                left: parent.left
-                top: _addRow.bottom
-                topMargin: 1
-            }
-//            anchors.fill: parent
+            anchors.fill: parent
 
             spacing: 1
 
@@ -175,7 +171,7 @@ Page {
                 }
             }
         }
-//    }
+    }
 
     BaseButton {
         id: _addRow
@@ -245,7 +241,7 @@ Page {
             topMargin: 1
             bottom: _deleteRow.top
             bottomMargin: 1
-            left: _rowsNums.right
+            left: _rowsNumsView.right
             leftMargin: 1
             right: parent.right
         }
@@ -265,7 +261,7 @@ Page {
                 id: _model
             }
 
-            delegate: DelegateChooser {
+            delegate: DelegateChooser {    
                 DelegateChoice {
                     column: 0
                     delegate: Rectangle {

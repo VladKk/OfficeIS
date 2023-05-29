@@ -58,11 +58,12 @@ target_compile_definitions(${PROJECT} PRIVATE
     ${Qt6Sql_DEFINITIONS}
     $<$<BOOL:${DEBUG}>:DEBUG>)
 
-target_link_libraries(${PROJECT} PRIVATE Qt6::Core Qt6::Qml Qt6::Quick Qt6::Widgets Qt6::Sql gui)
+target_link_libraries(${PROJECT} PRIVATE Qt6::Core Qt6::Qml Qt6::Quick Qt6::Widgets Qt6::Sql gui logger_base)
 
 add_subdirectory(common)
 add_subdirectory(filehandler)
 add_subdirectory(filteringmodel)
+add_subdirectory(logger)
 add_subdirectory(gui)
 
 install(TARGETS ${PROJECT} RUNTIME DESTINATION ${OFFICEIS_INSTALL_PATH})

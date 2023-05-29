@@ -8,6 +8,7 @@
 #include <QSqlDatabase>
 
 #include "config.h"
+#include "loggerbase.h"
 
 int main(int argc, char **argv)
 {
@@ -22,11 +23,10 @@ int main(int argc, char **argv)
     app.setApplicationName("OfficeIS");
     auto appArgs = app.arguments();
 
-    // NOTE: to prevent the "qml:" category printing at every line from QML
-    qSetMessagePattern("%{message}");
-    // NOTE: to prevent the SSL & Kernel warnings
-    QLoggingCategory::setFilterRules("qt.network.ssl.warning=false\n"
-                                     "qt.widgets.kernel.warning=false");
+    // NOTE: set logger
+    qInstallMessageHandler(qEnvironmentVariableIsEmpty("FORCE_LOG_STDOUT")
+                               ? OfficeIS::LoggerBase::instance()->handleMsg
+                               : 0);
 
     QQmlApplicationEngine engine;
     QObject::connect(&engine, &QQmlEngine::exit, &app, &QCoreApplication::exit, Qt::QueuedConnection);
@@ -45,7 +45,16 @@ int main(int argc, char **argv)
 
     // Get user cred for env
     const QString localCred = QProcessEnvironment::systemEnvironment().value("LOCAL_CRED", "");
+    const bool verboseModeEnabled = QProcessEnvironment::systemEnvironment()
+                                        .value("JIRATOOL_ENABLE_VERBOSE_MODE", "1")
+                                    == "1";
+    const bool inputLoggingEnabled = QProcessEnvironment::systemEnvironment()
+                                         .value("JIRATOOL_ENABLE_INPUT_LOGGING", "0")
+                                     == "1";
+
     engine.rootContext()->setContextProperty("LOCAL_CRED", localCred);
+    engine.rootContext()->setContextProperty("ENABLE_VERBOSE_MODE", verboseModeEnabled);
+    engine.rootContext()->setContextProperty("ENABLE_INPUT_LOGGING", inputLoggingEnabled);
 
     const QUrl url(QStringLiteral("qrc:/gui/main.qml"));
     engine.load(url);

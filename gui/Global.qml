@@ -29,6 +29,9 @@ Item {
 
         property string lastUsedColourScheme
         property string progressAnimation
+
+        property bool verboseModeActive: ENABLE_VERBOSE_MODE
+        property bool inputLoggingEnabled: ENABLE_INPUT_LOGGING
     }
 
     QtObject {
